@@ -1,0 +1,52 @@
+@import "../../settings";
+
+.canvas {
+  transition: transform 0.2s ease;
+  width: 100%;
+  // padding: 2rem 0;
+  padding: 0;
+  transform: translateY(-40vh);
+  background: #222;
+
+  @media screen and (min-width: $mobile-breakpoint) {
+    width: calc(100% - 37rem);
+    transform: translateX(-15rem);
+  }
+
+  &.canvas--with-sidebar {
+    transform: translateX(0rem);
+  }
+
+  div.card {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // width: 100%;
+    width: 500px;
+    // padding: 0 1rem;
+    padding: 0;
+    display: inline-block;
+    // height: 50vh;
+    // max-height: 80vh;
+    margin: 0 auto;
+    // border: solid 3px pink;
+    
+    svg:not(:root) {
+      overflow: hidden;
+    }
+
+    svg {
+      text {
+        cursor: default;
+        -webkit-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+      }
+      text::selection {
+        background: none;
+      }
+    }
+  }
+}
