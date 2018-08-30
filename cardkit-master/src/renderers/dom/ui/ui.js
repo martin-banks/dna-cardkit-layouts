@@ -102,11 +102,11 @@ class UI extends React.Component {
 
           <Sidebar configuration={this.state.configuration}
 
-            // template={this.state.template}
-            // templates={this.props.templates}
+            template={this.state.template}
+            templates={this.props.templates}
 
-            // theme={this.state.theme}
-            // themes={this.props.themes}
+            theme={this.state.theme}
+            themes={this.props.themes}
 
             layout={this.state.layout}
             layouts={this.props.layouts}

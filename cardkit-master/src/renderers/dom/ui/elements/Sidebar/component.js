@@ -139,7 +139,7 @@ class Sidebar extends React.Component {
         <ul className="buttons">
 
           {this.renderButton('template', 'Template', this.props.templates)}
-          {this.renderButton('layout', 'Layouts', this.props.layouts)}
+          {this.renderButton('layout', 'Size', this.props.layouts)}
           {this.renderButton('theme', 'Themes', this.props.themes)}
           {this.renderButton('content', 'Content', this.props.configuration)}
 

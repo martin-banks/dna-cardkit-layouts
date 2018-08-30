@@ -1114,15 +1114,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'main',
 	          { className: 'main' },
-	          React.createElement(Sidebar, { configuration: this.state.configuration
+	          React.createElement(Sidebar, { configuration: this.state.configuration,
 
-	            // template={this.state.template}
-	            // templates={this.props.templates}
+	            template: this.state.template,
+	            templates: this.props.templates,
 
-	            // theme={this.state.theme}
-	            // themes={this.props.themes}
+	            theme: this.state.theme,
+	            themes: this.props.themes,
 
-	            , layout: this.state.layout,
+	            layout: this.state.layout,
 	            layouts: this.props.layouts,
 
 	            onConfigurationChange: this.updateConfiguration,
@@ -1792,7 +1792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          'ul',
 	          { className: 'buttons' },
 	          this.renderButton('template', 'Template', this.props.templates),
-	          this.renderButton('layout', 'Layouts', this.props.layouts),
+	          this.renderButton('layout', 'Size', this.props.layouts),
 	          this.renderButton('theme', 'Themes', this.props.themes),
 	          this.renderButton('content', 'Content', this.props.configuration),
 	          React.createElement(
@@ -2149,7 +2149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	// module
-	exports.push([module.id, ".layer-config {\n  background: #FFF;\n  margin: 0 0 2rem;\n  box-shadow: 0 2px 5px 0px #bbb; }\n  .layer-config h3 {\n    background: #f9f9f9;\n    padding: 0.4rem 1rem;\n    font-size: 1rem; }\n  .layer-config .element-config {\n    padding: 1rem; }\n", ""]);
+	exports.push([module.id, ".layer-config {\n  background: #FFF;\n  margin: 0 0 2rem;\n  box-shadow: 0 2px 5px 0px #bbb; }\n  .layer-config h3 {\n    background: #ccc;\n    padding: 1rem;\n    font-size: 1.2rem; }\n  .layer-config .element-config {\n    padding: 1rem; }\n", ""]);
 
 	// exports
 
@@ -2823,15 +2823,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	          'Template'
 	        ),
 	        React.createElement(
-	          'select',
-	          { defaultValue: this.props.template, onChange: this.handleUpdate },
-	          Object.keys(this.props.templates).map(function (name, index) {
+	          'div',
+	          null,
+	          Object.keys(this.props.templates).map(function (name, i) {
 	            return React.createElement(
-	              'option',
-	              { key: index, value: name },
+	              'button',
+	              { className: 'template', key: i, value: name, onClick: _this2.handleUpdate },
 	              name
 	            );
 	          })
+	        ),
+	        React.createElement(
+	          'style',
+	          { jsx: true },
+	          '\n          button.template {\n            transition: all 300ms;\n            box-size: border-box;\n            width: 100%;\n            padding: 8px 24px;\n            font-size: 20px;\n            margin-bottom: 8px;\n            background: #fff;\n            border-radius: 4px;\n            box-shadow: 0px 4px 16px -8px rgba(0,0,0, 1);\n          }\n          button.theme:hover {\n            background: #333;\n            color: #ccc;\n\n          }\n        '
 	        )
 	      );
 	    }
@@ -2999,6 +3004,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      if (!this.props.themes) return null;
 
 	      return React.createElement(
@@ -3010,15 +3017,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	          'Theme'
 	        ),
 	        React.createElement(
-	          'select',
-	          { defaultValue: this.props.theme, onChange: this.handleUpdate },
-	          Object.keys(this.props.themes).map(function (name, index) {
+	          'div',
+	          null,
+	          Object.keys(this.props.themes).map(function (name, i) {
 	            return React.createElement(
-	              'option',
-	              { key: index, value: name },
+	              'button',
+	              { className: 'theme', key: i, value: name, onClick: _this2.handleUpdate },
 	              name
 	            );
 	          })
+	        ),
+	        React.createElement(
+	          'style',
+	          { jsx: true },
+	          '\n          button.theme {\n            transition: all 300ms;\n            box-size: border-box;\n            width: 100%;\n            padding: 8px 24px;\n            font-size: 20px;\n            margin-bottom: 8px;\n            background: #fff;\n            border-radius: 4px;\n            box-shadow: 0px 4px 16px -8px rgba(0,0,0, 1);\n          }\n          button.theme:hover {\n            background: #333;\n            color: #ccc;\n\n          }\n        '
 	        )
 	      );
 	    }

@@ -60,11 +60,36 @@ class TemplatePanel extends React.Component {
       <div className={'panel panel--template' + (this.props.active ? ' panel--show' : '')}>
         <h3>Template</h3>
 
-        <select defaultValue={this.props.template} onChange={this.handleUpdate}>
+        {/* <select defaultValue={this.props.template} onChange={this.handleUpdate}>
           {Object.keys(this.props.templates).map((name, index) => {
             return (<option key={index} value={name}>{name}</option>);
           })}
-        </select>
+        </select> */}
+
+        <div>
+          { Object.keys(this.props.templates).map((name, i) => {
+            return (<button className="template" key={ i } value={ name } onClick={ this.handleUpdate }>{ name }</button>)
+          })}
+        </div>
+
+        <style jsx>{`
+          button.template {
+            transition: all 300ms;
+            box-size: border-box;
+            width: 100%;
+            padding: 8px 24px;
+            font-size: 20px;
+            margin-bottom: 8px;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0px 4px 16px -8px rgba(0,0,0, 1);
+          }
+          button.theme:hover {
+            background: #333;
+            color: #ccc;
+
+          }
+        `}</style>
 
       </div>
     );
