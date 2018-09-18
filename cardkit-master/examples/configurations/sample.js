@@ -162,7 +162,7 @@ var configuration = {
       get lineHeight () {
         return this.fontSize * 1.2;
       },
-      fontFamily: 'Arial',
+      fontFamily: 'RobotoCond',
       fill: '#666',
       editable: {
         text: true,
