@@ -1062,6 +1062,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'updateLayout',
 	    value: function updateLayout(layout) {
+	      // ! activeCardLayout is a global variable in the config file
+	      // ! It is used to dynamically set x-position on some child elements
+	      window.activeCardWidth = window.layouts[layout].card.width;
+
+	      console.log(window.layouts, window.activeCardWidth);
 	      var configuration = this.props.cardKit.computeConfiguration({
 	        template: this.state.template,
 	        theme: this.state.theme,
@@ -1190,7 +1195,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	// module
-	exports.push([module.id, "html {\n  font-size: 62.5%; }\n\nbody {\n  font-size: 1.4rem;\n  margin: 0;\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-weight: 400; }\n\n*, *:before, *:after {\n  box-sizing: border-box; }\n\nmain.main {\n  display: flex;\n  flex-direction: column;\n  height: 100vh; }\n  @media screen and (min-width: 768px) {\n    main.main {\n      flex-direction: row; } }\n\nh1, h2, h3, h4, h5, h6 {\n  font-weight: 800;\n  margin: 0 0 0.67rem;\n  letter-spacing: 0.1rem;\n  text-transform: uppercase; }\n\nhr {\n  border: 0;\n  border-bottom: 1px solid #bababa;\n  margin-bottom: 1.5rem; }\n\n.pull-bottom {\n  box-sizing: border-box;\n  margin-left: auto; }\n  .pull-bottom button {\n    border: solid 6px #333 !important;\n    background: rgba(186, 218, 85, 0.6) !important; }\n    .pull-bottom button:hover {\n      background: rgba(186, 218, 85, 0.8) !important;\n      color: white !important; }\n\ninput[type=\"text\"],\ninput[type=\"email\"],\ninput[type=\"number\"],\ninput[type=\"range\"],\ninput[type=\"file\"],\nselect,\ntextarea {\n  width: 100%;\n  border: 1px solid #eaeaea;\n  background: #FFF;\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-size: 1.4rem;\n  padding: 0.8rem;\n  margin: 0.2rem 0 1.5rem; }\n\ninput[type=\"range\"],\ninput[type=\"file\"] {\n  padding: 0rem;\n  border: 0; }\n\ninput[type=\"file\"] {\n  background: transparent; }\n\ntextarea {\n  min-height: 12rem; }\n", ""]);
+	exports.push([module.id, "html {\n  font-size: 62.5%; }\n\nbody {\n  font-size: 1.4rem;\n  margin: 0;\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-weight: 400; }\n\n*, *:before, *:after {\n  box-sizing: border-box; }\n\nmain.main {\n  display: flex;\n  flex-direction: column;\n  height: 100vh; }\n  @media screen and (min-width: 768px) {\n    main.main {\n      flex-direction: row; } }\n\nh1, h2, h3, h4, h5, h6 {\n  font-weight: 800;\n  margin: 0 0 0.67rem;\n  letter-spacing: 0.1rem;\n  text-transform: uppercase; }\n\nhr {\n  border: 0;\n  border-bottom: 1px solid #bababa;\n  margin-bottom: 1.5rem; }\n\n.pull-bottom {\n  box-sizing: border-box;\n  margin-left: auto; }\n  .pull-bottom button {\n    text-align: left !important;\n    border: solid 6px #333 !important;\n    background: rgba(186, 218, 85, 0.6) !important; }\n    .pull-bottom button:hover {\n      background: rgba(186, 218, 85, 0.8) !important;\n      color: white !important; }\n\ninput[type=\"text\"],\ninput[type=\"email\"],\ninput[type=\"number\"],\ninput[type=\"range\"],\ninput[type=\"file\"],\nselect,\ntextarea {\n  width: 100%;\n  border: 1px solid #eaeaea;\n  background: #FFF;\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-size: 1.4rem;\n  padding: 0.8rem;\n  margin: 0.2rem 0 1.5rem; }\n\ninput[type=\"range\"],\ninput[type=\"file\"] {\n  padding: 0rem;\n  border: 0; }\n\ninput[type=\"file\"] {\n  background: transparent; }\n\ntextarea {\n  min-height: 12rem; }\n", ""]);
 
 	// exports
 

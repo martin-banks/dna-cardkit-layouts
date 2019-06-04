@@ -40,6 +40,7 @@ hr {
   box-sizing: border-box;
   margin-left: auto;
   button {
+    text-align: left !important;
     border: solid 6px #333 !important;
     background: rgba(#bada55, 0.6) !important;
     &:hover {

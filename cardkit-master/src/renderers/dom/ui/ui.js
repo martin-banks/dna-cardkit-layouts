@@ -53,6 +53,11 @@ class UI extends React.Component {
   }
 
   updateLayout (layout) {
+    // ! activeCardLayout is a global variable in the config file
+    // ! It is used to dynamically set x-position on some child elements
+    window.activeCardWidth = window.layouts[layout].card.width
+
+    console.log(window.layouts, window.activeCardWidth)
     const configuration = this.props.cardKit.computeConfiguration({
       template: this.state.template,
       theme: this.state.theme,
