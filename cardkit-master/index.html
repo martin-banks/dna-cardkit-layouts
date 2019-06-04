@@ -8,24 +8,31 @@
 
 <div id="ui"></div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-139327500-6"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
 <script type="text/javascript" src="./dist/cardkit.js"></script>
 <script type="text/javascript" src="./dist/dom.js"></script>
 <script type="text/javascript" src="./configuration.js"></script>
 <script type="text/javascript">
- 
+  // Global site tag (gtag.js) - Google Analytics
+  window.dataLayer = window.dataLayer || []
+  function gtag () {
+    dataLayer.push(arguments)
+  }
+  gtag('js', new Date())
+  gtag('config', 'UA-139327500-6')
 
   // Instantiate CardKit
   var cardkit = new CardKit(configuration, {
     themes: themes,
     layouts: layouts
-  });
+  })
 
-  var renderer = new CardKitDOM(cardkit);
+  var renderer = new CardKitDOM(cardkit)
 
   // Render the UI
-  renderer.renderUI('ui');
+  renderer.renderUI('ui')
 
 </script>
 </body>
