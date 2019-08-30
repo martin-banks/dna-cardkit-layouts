@@ -26,18 +26,22 @@ class LayoutPanel extends React.Component {
         <h3>Layout</h3>
 
         {Object.keys(this.props.layouts).map((name, index) => {
-          const { width, height } = this.props.layouts[name].card;
+          const { width, height, usecases } = this.props.layouts[name].card
+          const ratioHeight = height / width * 270
 
-          const ratioHeight = height / width * 270;
-
-          return (<CardLayout key={index}
-            onClick={this.handleClick}
-            layout={this.props.layout}
-            name={name}
-            ratioHeight={ratioHeight}>
-            <h4>{name}</h4>
-            {width} &times; {height}
-          </CardLayout>)
+          return (
+            <CardLayout
+              key={index}
+              onClick={this.handleClick}
+              layout={this.props.layout}
+              name={name}
+              ratioHeight={ratioHeight}
+            >
+              <h4>{ name }</h4>
+              <p>{ width } &times; { height }</p>
+              { usescases && <p>{ usecases }</p> }
+            </CardLayout>
+          )
         })}
 
       </div>
