@@ -1,5 +1,6 @@
 // Base configuration object 
 
+console.log('found this?')
 
 window.activeCardWidth = 1080
 
@@ -590,9 +591,9 @@ window.themes = themes
 window.layouts = layouts
 
 // comment for use live ?
-// module.exports = {
-//   configuration: configuration,
-//   templates: templates,
-//   themes: themes,
-//   layouts: layouts
-// }
+module.exports = {
+  configuration: configuration,
+  templates: templates,
+  themes: themes,
+  layouts: layouts
+}

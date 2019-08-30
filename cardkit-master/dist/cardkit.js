@@ -5,7 +5,7 @@
 	 *
 	 * The MIT License (MIT)
 	 *
-	 * Copyright (c) 2013-2015 Viacheslav Lotsmanov
+	 * Copyright (c) 2013-2018 Viacheslav Lotsmanov
 	 *
 	 * Permission is hereby granted, free of charge, to any person obtaining a copy of
 	 * this software and associated documentation files (the "Software"), to deal in
@@ -24,7 +24,7 @@
 	 * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 	 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	 */
-"use strict";function e(t){return t instanceof r||t instanceof Date||t instanceof RegExp}function n(t){if(t instanceof r){var e=new r(t.length);return t.copy(e),e}if(t instanceof Date)return new Date(t.getTime());if(t instanceof RegExp)return new RegExp(t);throw new Error("Unexpected situation")}function i(t){var r=[];return t.forEach(function(t,u){"object"==typeof t&&null!==t?Array.isArray(t)?r[u]=i(t):e(t)?r[u]=n(t):r[u]=o({},t):r[u]=t}),r}var o=t.exports=function(){if(arguments.length<1||"object"!=typeof arguments[0])return!1;if(arguments.length<2)return arguments[0];var t,r,u=arguments[0],f=Array.prototype.slice.call(arguments,1);return f.forEach(function(f){"object"!=typeof f||null===f||Array.isArray(f)||Object.keys(f).forEach(function(s){return r=u[s],t=f[s],t===u?void 0:"object"!=typeof t||null===t?void(u[s]=t):Array.isArray(t)?void(u[s]=i(t)):e(t)?void(u[s]=n(t)):"object"!=typeof r||null===r||Array.isArray(r)?void(u[s]=o({},t)):void(u[s]=o(r,t))})}),u}}).call(r,e(2).Buffer)},function(t,r,e){(function(t){/*!
+"use strict";function e(t){return t instanceof r||t instanceof Date||t instanceof RegExp}function n(t){if(t instanceof r){var e=r.alloc?r.alloc(t.length):new r(t.length);return t.copy(e),e}if(t instanceof Date)return new Date(t.getTime());if(t instanceof RegExp)return new RegExp(t);throw new Error("Unexpected situation")}function i(t){var r=[];return t.forEach(function(t,o){"object"==typeof t&&null!==t?Array.isArray(t)?r[o]=i(t):e(t)?r[o]=n(t):r[o]=u({},t):r[o]=t}),r}function o(t,r){return"__proto__"===r?void 0:t[r]}var u=t.exports=function(){if(arguments.length<1||"object"!=typeof arguments[0])return!1;if(arguments.length<2)return arguments[0];var t,r,f=arguments[0],s=Array.prototype.slice.call(arguments,1);return s.forEach(function(s){"object"!=typeof s||null===s||Array.isArray(s)||Object.keys(s).forEach(function(a){return r=o(f,a),t=o(s,a),t===f?void 0:"object"!=typeof t||null===t?void(f[a]=t):Array.isArray(t)?void(f[a]=i(t)):e(t)?void(f[a]=n(t)):"object"!=typeof r||null===r||Array.isArray(r)?void(f[a]=u({},t)):void(f[a]=u(r,t))})}),f}}).call(r,e(2).Buffer)},function(t,r,e){(function(t){/*!
 	 * The buffer module from node.js, for the browser.
 	 *
 	 * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>

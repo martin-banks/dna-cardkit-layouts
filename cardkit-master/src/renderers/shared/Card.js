@@ -9,10 +9,57 @@ const {
   Circle,
   Ellipse,
   Line,
-  Image,
+  // Image,
   Path,
   LinearGradient
 } = require('rvg.js');
+
+class DraggableBase extends React.Component {
+  constructor(props) {
+    super(props);
+    this.draggableProps = {};
+    if(this.props.draggable) {
+      this.draggableProps = {
+        'data-draggable': true,
+        style: {
+          cursor: 'move'
+        }
+      };
+    } else {
+      this.draggableProps = {
+        style: {
+          'pointerEvents': 'none'
+        }
+      }
+    }
+  }
+}
+
+class Image extends DraggableBase {
+  render() {
+    const {
+      x, y,
+      height, width,
+      href,
+      opacity,
+      id,
+    } = this.props;
+
+    return (
+      <image
+        id={ id }
+        xlinkHref={href}
+        x={x}
+        y={y}
+        height={height}
+        width={width}
+        preserveAspectRatio="xMinYMin meet"
+        opacity={opacity}
+        {...this.draggableProps}
+      />
+    );
+  }
+}
 
 /**
  * @name Card
@@ -176,6 +223,76 @@ class Card extends React.Component {
             opacity={layerData.opacity}
             key={key} />);
           break;
+        case 'clip_half_left':
+          array.push(<g>
+            <defs>
+              <clipPath id="clip-half-left">
+                <rect
+                  id="rect-half-left"
+                  x="0"
+                  y="0"
+                  width="49%"
+                  height="100%"
+                />
+              </clipPath>
+            </defs>
+            <g clipPath="url(#clip-half-left)">
+              <rect
+                width="100%"
+                height="100%"
+                fill="#272730"
+              />
+              <Image
+                id="image-half-left"
+                x={layerData.x}
+                y={this.calculateYPosition(layers, layerData)}
+                href={layerData.src}
+                height={layerData.height}
+                width={layerData.width}
+                draggable={layerData.draggable}
+                transform={layerData.transform}
+                opacity={layerData.opacity}
+                key={key}
+              />
+            </g>
+          </g>);
+          break;
+
+          case 'clip_half_right':
+              array.push(<g>
+                <defs>
+                  <clipPath id="clip-half-right">
+                    <rect
+                      id="rect-half-right"
+                      x="51%"
+                      y="0"
+                      width="49%"
+                      height="100%"
+                    />
+                  </clipPath>
+                </defs>
+                <g clipPath="url(#clip-half-right)">
+                  <rect
+                    width="100%"
+                    height="100%"
+                    fill="#bada55"
+                  />
+                  <Image
+                    id="image-half-right"
+                    x={layerData.x}
+                    y={this.calculateYPosition(layers, layerData)}
+                    href={layerData.src}
+                    height={layerData.height}
+                    width={layerData.width}
+                    draggable={layerData.draggable}
+                    transform={layerData.transform}
+                    opacity={layerData.opacity}
+                    key={key}
+                  />
+                </g>
+              </g>);
+              break;
+
         case 'rectangle':
           array.push(<Rectangle x={layerData.x}
             y={this.calculateYPosition(layers, layerData)}

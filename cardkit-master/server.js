@@ -20005,6 +20005,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20025,9 +20027,75 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Circle = _require.Circle,
 	    Ellipse = _require.Ellipse,
 	    Line = _require.Line,
-	    Image = _require.Image,
 	    Path = _require.Path,
 	    LinearGradient = _require.LinearGradient;
+
+	var DraggableBase = function (_React$Component) {
+	  _inherits(DraggableBase, _React$Component);
+
+	  function DraggableBase(props) {
+	    _classCallCheck(this, DraggableBase);
+
+	    var _this = _possibleConstructorReturn(this, (DraggableBase.__proto__ || Object.getPrototypeOf(DraggableBase)).call(this, props));
+
+	    _this.draggableProps = {};
+	    if (_this.props.draggable) {
+	      _this.draggableProps = {
+	        'data-draggable': true,
+	        style: {
+	          cursor: 'move'
+	        }
+	      };
+	    } else {
+	      _this.draggableProps = {
+	        style: {
+	          'pointerEvents': 'none'
+	        }
+	      };
+	    }
+	    return _this;
+	  }
+
+	  return DraggableBase;
+	}(React.Component);
+
+	var Image = function (_DraggableBase) {
+	  _inherits(Image, _DraggableBase);
+
+	  function Image() {
+	    _classCallCheck(this, Image);
+
+	    return _possibleConstructorReturn(this, (Image.__proto__ || Object.getPrototypeOf(Image)).apply(this, arguments));
+	  }
+
+	  _createClass(Image, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          x = _props.x,
+	          y = _props.y,
+	          height = _props.height,
+	          width = _props.width,
+	          href = _props.href,
+	          opacity = _props.opacity,
+	          id = _props.id;
+
+
+	      return React.createElement('image', _extends({
+	        id: id,
+	        xlinkHref: href,
+	        x: x,
+	        y: y,
+	        height: height,
+	        width: width,
+	        preserveAspectRatio: 'xMinYMin meet',
+	        opacity: opacity
+	      }, this.draggableProps));
+	    }
+	  }]);
+
+	  return Image;
+	}(DraggableBase);
 
 	/**
 	 * @name Card
@@ -20035,8 +20103,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 
-	var Card = function (_React$Component) {
-	  _inherits(Card, _React$Component);
+	var Card = function (_React$Component2) {
+	  _inherits(Card, _React$Component2);
 
 	  function Card() {
 	    _classCallCheck(this, Card);
@@ -20123,7 +20191,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'computeGradients',
 	    value: function computeGradients(layers) {
-	      var _this2 = this;
+	      var _this4 = this;
 
 	      var array = [];
 	      var layer = void 0,
@@ -20132,8 +20200,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      Object.keys(layers).forEach(function (key) {
 	        layer = layers[key];
 
-	        if (_this2.getLayerValue(layers, layer, 'gradient')) {
-	          gradient = _this2.getLayerValue(layers, layer, 'gradient');
+	        if (_this4.getLayerValue(layers, layer, 'gradient')) {
+	          gradient = _this4.getLayerValue(layers, layer, 'gradient');
 
 	          array.push(React.createElement(LinearGradient, { key: key,
 	            name: key,
@@ -20157,7 +20225,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'computeLayers',
 	    value: function computeLayers(layers) {
-	      var _this3 = this;
+	      var _this5 = this;
 
 	      var array = [];
 	      var layer = void 0;
@@ -20167,7 +20235,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        layer = layers[key];
 
 	        // If the layer is hidden, ignore it
-	        if (_this3.getLayerValue(layers, layer, 'hidden') === true) {
+	        if (_this5.getLayerValue(layers, layer, 'hidden') === true) {
 	          return;
 	        };
 
@@ -20176,12 +20244,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Iterate over the properties of the layer, and compute the value (handles getters, functions, and object implementations such as `y`)
 	        Object.keys(layer).forEach(function (k) {
-	          layerData[k] = _this3.getLayerValue(layers, layer, k);
+	          layerData[k] = _this5.getLayerValue(layers, layer, k);
 	        });
 
 	        // Make the fill value map to a gradient name, if a gradient has been configured
 	        // See computeGradients() for the creation of gradient definitions
-	        if (_this3.getLayerValue(layers, layer, 'gradient')) {
+	        if (_this5.getLayerValue(layers, layer, 'gradient')) {
 	          layerData.fill = 'url(#' + key + ')';
 	        }
 
@@ -20194,7 +20262,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            array.push(React.createElement(
 	              Text,
 	              { x: layerData.x,
-	                y: _this3.calculateYPosition(layers, layerData),
+	                y: _this5.calculateYPosition(layers, layerData),
 	                fontFamily: layerData.fontFamily,
 	                fontSize: layerData.fontSize,
 	                fontWeight: layerData.fontWeight,
@@ -20211,7 +20279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            break;
 	          case 'image':
 	            array.push(React.createElement(Image, { x: layerData.x,
-	              y: _this3.calculateYPosition(layers, layerData),
+	              y: _this5.calculateYPosition(layers, layerData),
 	              href: layerData.src,
 	              height: layerData.height,
 	              width: layerData.width,
@@ -20220,9 +20288,95 @@ return /******/ (function(modules) { // webpackBootstrap
 	              opacity: layerData.opacity,
 	              key: key }));
 	            break;
+	          case 'clip_half_left':
+	            array.push(React.createElement(
+	              'g',
+	              null,
+	              React.createElement(
+	                'defs',
+	                null,
+	                React.createElement(
+	                  'clipPath',
+	                  { id: 'clip-half-left' },
+	                  React.createElement('rect', {
+	                    id: 'rect-half-left',
+	                    x: '0',
+	                    y: '0',
+	                    width: '49%',
+	                    height: '100%'
+	                  })
+	                )
+	              ),
+	              React.createElement(
+	                'g',
+	                { clipPath: 'url(#clip-half-left)' },
+	                React.createElement('rect', {
+	                  width: '100%',
+	                  height: '100%',
+	                  fill: '#272730'
+	                }),
+	                React.createElement(Image, {
+	                  id: 'image-half-left',
+	                  x: layerData.x,
+	                  y: _this5.calculateYPosition(layers, layerData),
+	                  href: layerData.src,
+	                  height: layerData.height,
+	                  width: layerData.width,
+	                  draggable: layerData.draggable,
+	                  transform: layerData.transform,
+	                  opacity: layerData.opacity,
+	                  key: key
+	                })
+	              )
+	            ));
+	            break;
+
+	          case 'clip_half_right':
+	            array.push(React.createElement(
+	              'g',
+	              null,
+	              React.createElement(
+	                'defs',
+	                null,
+	                React.createElement(
+	                  'clipPath',
+	                  { id: 'clip-half-right' },
+	                  React.createElement('rect', {
+	                    id: 'rect-half-right',
+	                    x: '51%',
+	                    y: '0',
+	                    width: '49%',
+	                    height: '100%'
+	                  })
+	                )
+	              ),
+	              React.createElement(
+	                'g',
+	                { clipPath: 'url(#clip-half-right)' },
+	                React.createElement('rect', {
+	                  width: '100%',
+	                  height: '100%',
+	                  fill: '#bada55'
+	                }),
+	                React.createElement(Image, {
+	                  id: 'image-half-right',
+	                  x: layerData.x,
+	                  y: _this5.calculateYPosition(layers, layerData),
+	                  href: layerData.src,
+	                  height: layerData.height,
+	                  width: layerData.width,
+	                  draggable: layerData.draggable,
+	                  transform: layerData.transform,
+	                  opacity: layerData.opacity,
+	                  key: key
+	                })
+	              )
+	            ));
+	            break;
+
 	          case 'rectangle':
 	            array.push(React.createElement(Rectangle, { x: layerData.x,
-	              y: _this3.calculateYPosition(layers, layerData),
+	              y: _this5.calculateYPosition(layers, layerData),
 	              fill: layerData.fill,
 	              height: layerData.height,
 	              width: layerData.width,
@@ -20232,7 +20386,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            break;
 	          case 'circle':
 	            array.push(React.createElement(Circle, { x: layerData.x,
-	              y: _this3.calculateYPosition(layers, layerData),
+	              y: _this5.calculateYPosition(layers, layerData),
 	              fill: layerData.fill,
 	              radius: layerData.radius,
 	              draggable: layerData.draggable,
@@ -20241,7 +20395,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            break;
 	          case 'ellipse':
 	            array.push(React.createElement(Ellipse, { x: layerData.x,
-	              y: _this3.calculateYPosition(layers, layerData),
+	              y: _this5.calculateYPosition(layers, layerData),
 	              fill: layerData.fill,
 	              radiusX: layerData.radiusX,
 	              radiusY: layerData.radiusY,

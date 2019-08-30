@@ -12,10 +12,11 @@ const base = require('./base.config');
 
 // Merge with base
 let config = _.merge(base, {
-  entry: './src/renderers/dom/dom.js',
+  // entry: './src/renderers/dom/dom.js',
+  entry: './src/demo-dom.js',
   output: {
-    path: './',
-    filename: 'dom.js',
+    path: './dist',
+    filename: 'demo-dom-bundle.js',
     libraryTarget: 'umd',
     library: 'CardKitDOM',
   },
