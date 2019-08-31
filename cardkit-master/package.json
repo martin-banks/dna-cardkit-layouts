@@ -65,10 +65,11 @@
     "btoa": "^1.1.2",
     "deep-extend": "^0.6.0",
     "googlefontcss64": "^1.0.0",
-    "react": "^15.3.2",
+    "react": "^16.9.0",
     "react-color": "^2.3.2",
-    "react-dom": "^15.3.2",
+    "react-dom": "^16.9.0",
     "rvg.js": "^1.1.0",
+    "styled-components": "^4.3.2",
     "svg2png": "4.0.0"
   }
 }
