@@ -43,6 +43,7 @@ class Image extends DraggableBase {
       href,
       opacity,
       id,
+      preserveAspectRatio,
     } = this.props;
 
     return (
@@ -53,7 +54,7 @@ class Image extends DraggableBase {
         y={y}
         height={height}
         width={width}
-        preserveAspectRatio="xMinYMin meet"
+        preserveAspectRatio={ preserveAspectRatio || "xMinYMin meet" }
         opacity={opacity}
         {...this.draggableProps}
       />
@@ -221,6 +222,7 @@ class Card extends React.Component {
             draggable={layerData.draggable}
             transform={layerData.transform}
             opacity={layerData.opacity}
+            preserveAspectRatio={layerData.preserveAspectRatio}
             key={key} />);
           break;
         case 'clip_half_left':

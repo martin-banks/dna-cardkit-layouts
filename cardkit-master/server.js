@@ -324,9 +324,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          width = _props.width,
 	          href = _props.href,
 	          opacity = _props.opacity,
-	          id = _props.id;
+	          id = _props.id,
+	          preserveAspectRatio = _props.preserveAspectRatio;
 
 
+	      console.log('Image props', this.props);
 	      return React.createElement('image', _extends({
 	        id: id,
 	        xlinkHref: href,
@@ -334,7 +336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y: y,
 	        height: height,
 	        width: width,
-	        preserveAspectRatio: 'xMinYMin meet',
+	        preserveAspectRatio: preserveAspectRatio || "xMinYMin meet",
 	        opacity: opacity
 	      }, this.draggableProps));
 	    }
@@ -532,6 +534,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              draggable: layerData.draggable,
 	              transform: layerData.transform,
 	              opacity: layerData.opacity,
+	              preserveAspectRatio: layerData.preserveAspectRatio,
 	              key: key }));
 	            break;
 	          case 'clip_half_left':

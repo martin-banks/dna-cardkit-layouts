@@ -668,9 +668,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          width = _props.width,
 	          href = _props.href,
 	          opacity = _props.opacity,
-	          id = _props.id;
+	          id = _props.id,
+	          preserveAspectRatio = _props.preserveAspectRatio;
 
 
+	      console.log('Image props', this.props);
 	      return React.createElement('image', _extends({
 	        id: id,
 	        xlinkHref: href,
@@ -678,7 +680,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y: y,
 	        height: height,
 	        width: width,
-	        preserveAspectRatio: 'xMinYMin meet',
+	        preserveAspectRatio: preserveAspectRatio || "xMinYMin meet",
 	        opacity: opacity
 	      }, this.draggableProps));
 	    }
@@ -876,6 +878,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              draggable: layerData.draggable,
 	              transform: layerData.transform,
 	              opacity: layerData.opacity,
+	              preserveAspectRatio: layerData.preserveAspectRatio,
 	              key: key }));
 	            break;
 	          case 'clip_half_left':
@@ -3344,12 +3347,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return React.createElement(
 	        'div',
-	        { className: 'panel panel--layout' + (this.props.active ? ' panel--show' : '') },
-	        React.createElement(
-	          'h3',
-	          null,
-	          'Layout'
-	        ),
+	        {
+	          className: 'panel panel--layout' + (this.props.active ? ' panel--show' : '')
+	        },
 	        Object.keys(this.props.layouts).map(function (name, index) {
 	          var _props$layouts$name$c = _this2.props.layouts[name].card,
 	              width = _props$layouts$name$c.width,
@@ -3374,17 +3374,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ),
 	            React.createElement(
 	              'p',
-	              null,
+	              { className: 'dimensions' },
 	              width,
 	              ' \xD7 ',
 	              height
 	            ),
 	            usecases && React.createElement(
-	              'p',
-	              null,
+	              'ul',
+	              { className: 'usecases' },
 	              usecases.map(function (u) {
 	                return React.createElement(
-	                  'span',
+	                  'li',
 	                  null,
 	                  u
 	                );
@@ -3457,7 +3457,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        { role: 'button',
 	          onClick: this.handleClick,
 	          className: 'layout' + (layout === name ? ' layout--selected' : ''),
-	          style: { height: ratioHeight * 200 + 'px', width: '200px' } },
+	          style: { height: ratioHeight * 225 + 'px', width: '225px' } },
 	        React.createElement(
 	          'div',
 	          null,
@@ -3515,7 +3515,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	// module
-	exports.push([module.id, ".panel.panel--layout .layout {\n  background: #333;\n  text-align: center;\n  padding: 2rem;\n  color: #FFF;\n  margin: 0 0 2rem;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n  .panel.panel--layout .layout:hover, .panel.panel--layout .layout.layout--selected {\n    background: #111; }\n", ""]);
+	exports.push([module.id, ".panel.panel--layout .layout {\n  background: linear-gradient(#111, #444);\n  text-align: left;\n  padding: 2rem;\n  color: #FFF;\n  margin: 0 auto 2rem auto;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  border-radius: 8px; }\n  .panel.panel--layout .layout:hover {\n    border: solid 2px seagreen;\n    transform: translateY(-4px) scale(1.05);\n    box-shadow: 0 8px 16px -8px black; }\n  .panel.panel--layout .layout.layout--selected {\n    background: linear-gradient(seagreen, darkseagreen); }\n\n.panel.panel--layout p, .panel.panel--layout h4 {\n  margin: 0; }\n\n.panel.panel--layout .dimensions {\n  margin-bottom: 4px; }\n\n.panel.panel--layout .usecases {\n  margin: 0;\n  padding: 0;\n  padding-left: 16px; }\n  .panel.panel--layout .usecases li {\n    margin: 0; }\n", ""]);
 
 	// exports
 
@@ -3569,8 +3569,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        null,
 	        React.createElement(
 	          'button',
-	          { onClick: this.handleClick,
-	            className: 'button' + (active ? ' button--active' : '') },
+	          {
+	            onClick: this.handleClick,
+	            className: 'button' + (active ? ' button--active' : '')
+	          },
 	          title
 	        )
 	      );
