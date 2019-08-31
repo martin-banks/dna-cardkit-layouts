@@ -19,7 +19,7 @@ class CardLayout extends React.Component {
     return (<div role="button"
       onClick={this.handleClick}
       className={'layout' + (layout === name ? ' layout--selected' : '')}
-      style={{height: (ratioHeight * 200) + 'px', width: '200px'}}>
+      style={{height: (ratioHeight * 225) + 'px', width: '225px'}}>
       <div>
         {this.props.children}
       </div>
