@@ -1,19 +1,42 @@
 .panel.panel--layout {
 
   .layout {
-    background: #333;
-    text-align: center;
+    background: linear-gradient(#111, #444);
+    text-align: left;
     padding: 2rem;
     color: #FFF;
-    margin: 0 0 2rem;
+    margin: 0 auto 2rem auto;
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
+    // justify-content: center;
+    border-radius: 8px;
 
-    &:hover,
+    &:hover {
+      border: solid 2px seagreen;
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 16px -8px rgba(black, 1);
+    }
     &.layout--selected {
-      background: #111;
+      background: linear-gradient(seagreen, darkseagreen);
+    }
+  }
+
+  p, h4 {
+    margin: 0;
+  }
+
+  .dimensions {
+    margin-bottom: 4px
+  }
+
+  .usecases {
+    margin: 0;
+    padding: 0;
+    padding-left: 16px;
+    // list-style: none;
+    li {
+      margin: 0;
     }
   }
 
