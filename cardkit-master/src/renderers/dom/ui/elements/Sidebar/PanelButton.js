@@ -18,9 +18,11 @@ class PanelButton extends React.Component {
     const { title, active } = this.props;
 
     return (<li>
-      <button onClick={this.handleClick}
-        className={'button' + (active ? ' button--active' : '')}>
-        {title}
+      <button
+        onClick={this.handleClick}
+        className={'button' + (active ? ' button--active' : '')}
+      >
+        { title }
       </button>
     </li>);
   }
