@@ -15,8 +15,8 @@ body {
 main.main {
   display: flex;
   flex-direction: column;
-  // height: calc(100vh - 5.7rem);
-  height: 100vh;
+  height: calc(100vh - 100px);
+  // height: 100vh;
 
   @media screen and (min-width: $mobile-breakpoint) {
     flex-direction: row;

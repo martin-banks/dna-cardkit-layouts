@@ -6,7 +6,7 @@ require('./base.scss');
 
 // Elements
 const {
-  // Header,
+  Header,
   Sidebar,
   Canvas
 } = require('./elements');

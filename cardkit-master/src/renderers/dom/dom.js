@@ -135,14 +135,14 @@ class CardKitDOM extends CardKitRenderer {
     const configuration = this.computeConfiguration();
 
     // If there's a layer that has the useAsFilename property, find it
-    const filenameLayerKey = Object.keys(configuration.layers)
-                                   .find((key) => {
-                                     const layer = configuration.layers[key];
-
-                                     return (layer.useAsFilename === true) && // Has the useAsFilename property
-                                            (layer.hidden !== true) && // Is not hidden
-                                            (layer.type === 'text'); // Is of type text
-                                   });
+    const filenameLayerKey = Object
+      .keys(configuration.layers)
+      .find((key) => {
+        const layer = configuration.layers[key];
+        return (layer.useAsFilename === true) && // Has the useAsFilename property
+              (layer.hidden !== true) && // Is not hidden
+              (layer.type === 'text'); // Is of type text
+      });
 
     // Get the layer that has the filename on it
     const filenameLayer = configuration.layers[filenameLayerKey];

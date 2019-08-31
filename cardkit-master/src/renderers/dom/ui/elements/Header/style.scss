@@ -1,6 +1,6 @@
 .header {
-  background: #4da5bd;
-  height: 5.7rem;
+  background: #111;
+  height: 0; //5.7rem;
   display: flex;
   position: relative;
   z-index: 10;
@@ -26,6 +26,19 @@
 
     &:hover {
       background: rgba(0, 0, 0, 0.4);
+    }
+  }
+  .backButton {
+    background: none;
+    border: solid 1 px white;
+    border-radius: 100px;
+    margin: 8px;
+    font-size: 18px;
+    color: white;
+    padding: 0 20px;
+    &:hover {
+      background: gold;
+      color: black;
     }
   }
 }

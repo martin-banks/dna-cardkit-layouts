@@ -549,7 +549,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // If there's a layer that has the useAsFilename property, find it
 	      var filenameLayerKey = Object.keys(configuration.layers).find(function (key) {
 	        var layer = configuration.layers[key];
-
 	        return layer.useAsFilename === true && // Has the useAsFilename property
 	        layer.hidden !== true && // Is not hidden
 	        layer.type === 'text'; // Is of type text
@@ -1202,6 +1201,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Elements
 
 	var _require = __webpack_require__(14),
+	    Header = _require.Header,
 	    Sidebar = _require.Sidebar,
 	    Canvas = _require.Canvas;
 
@@ -1390,7 +1390,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	// module
-	exports.push([module.id, "html {\n  font-size: 62.5%; }\n\nbody {\n  font-size: 1.4rem;\n  margin: 0;\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-weight: 400; }\n\n*, *:before, *:after {\n  box-sizing: border-box; }\n\nmain.main {\n  display: flex;\n  flex-direction: column;\n  height: 100vh; }\n  @media screen and (min-width: 768px) {\n    main.main {\n      flex-direction: row; } }\n\nh1, h2, h3, h4, h5, h6 {\n  font-weight: 800;\n  margin: 0 0 0.67rem;\n  letter-spacing: 0.1rem;\n  text-transform: uppercase; }\n\nhr {\n  border: 0;\n  border-bottom: 1px solid #bababa;\n  margin-bottom: 1.5rem; }\n\n.pull-bottom {\n  box-sizing: border-box;\n  margin-left: auto; }\n  .pull-bottom button {\n    text-align: left !important;\n    border: solid 6px #333 !important;\n    background: rgba(186, 218, 85, 0.6) !important; }\n    .pull-bottom button:hover {\n      background: rgba(186, 218, 85, 0.8) !important;\n      color: white !important; }\n\ninput[type=\"text\"],\ninput[type=\"email\"],\ninput[type=\"number\"],\ninput[type=\"range\"],\ninput[type=\"file\"],\nselect,\ntextarea {\n  width: 100%;\n  border: 1px solid #eaeaea;\n  background: #FFF;\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-size: 1.4rem;\n  padding: 0.8rem;\n  margin: 0.2rem 0 1.5rem; }\n\ninput[type=\"range\"],\ninput[type=\"file\"] {\n  padding: 0rem;\n  border: 0; }\n\ninput[type=\"file\"] {\n  background: transparent; }\n\ntextarea {\n  min-height: 12rem; }\n", ""]);
+	exports.push([module.id, "html {\n  font-size: 62.5%; }\n\nbody {\n  font-size: 1.4rem;\n  margin: 0;\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-weight: 400; }\n\n*, *:before, *:after {\n  box-sizing: border-box; }\n\nmain.main {\n  display: flex;\n  flex-direction: column;\n  height: calc(100vh - 100px); }\n  @media screen and (min-width: 768px) {\n    main.main {\n      flex-direction: row; } }\n\nh1, h2, h3, h4, h5, h6 {\n  font-weight: 800;\n  margin: 0 0 0.67rem;\n  letter-spacing: 0.1rem;\n  text-transform: uppercase; }\n\nhr {\n  border: 0;\n  border-bottom: 1px solid #bababa;\n  margin-bottom: 1.5rem; }\n\n.pull-bottom {\n  box-sizing: border-box;\n  margin-left: auto; }\n  .pull-bottom button {\n    text-align: left !important;\n    border: solid 6px #333 !important;\n    background: rgba(186, 218, 85, 0.6) !important; }\n    .pull-bottom button:hover {\n      background: rgba(186, 218, 85, 0.8) !important;\n      color: white !important; }\n\ninput[type=\"text\"],\ninput[type=\"email\"],\ninput[type=\"number\"],\ninput[type=\"range\"],\ninput[type=\"file\"],\nselect,\ntextarea {\n  width: 100%;\n  border: 1px solid #eaeaea;\n  background: #FFF;\n  font-family: \"Open Sans\", Helvetica, sans-serif;\n  font-size: 1.4rem;\n  padding: 0.8rem;\n  margin: 0.2rem 0 1.5rem; }\n\ninput[type=\"range\"],\ninput[type=\"file\"] {\n  padding: 0rem;\n  border: 0; }\n\ninput[type=\"file\"] {\n  background: transparent; }\n\ntextarea {\n  min-height: 12rem; }\n", ""]);
 
 	// exports
 
@@ -1745,23 +1745,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Header = function (_React$Component) {
 	  _inherits(Header, _React$Component);
 
-	  function Header() {
+	  function Header(props) {
 	    _classCallCheck(this, Header);
 
-	    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
+
+	    _this.backToGallery = _this.backToGallery.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(Header, [{
+	    key: 'backToGallery',
+	    value: function backToGallery() {
+	      location.reload();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return React.createElement(
 	        'header',
 	        { className: 'header' },
-	        React.createElement('img', { src: images.logo }),
 	        React.createElement(
-	          'a',
-	          { href: 'http://github.com/times/cardkit', target: '_blank' },
-	          'About CardKit'
+	          'button',
+	          { className: 'backButton', onClick: this.backToGallery },
+	          'Back to Gallery'
 	        )
 	      );
 	    }
@@ -1810,7 +1817,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	// module
-	exports.push([module.id, ".header {\n  background: #4da5bd;\n  height: 5.7rem;\n  display: flex;\n  position: relative;\n  z-index: 10; }\n  .header img {\n    padding: 1rem;\n    margin: 0;\n    display: block;\n    width: 16.2rem;\n    height: 5.7rem; }\n  .header a {\n    margin-right: 0;\n    margin-left: auto;\n    padding: 0 2rem;\n    color: #FFFFFF;\n    text-transform: uppercase;\n    letter-spacing: 1px;\n    text-decoration: none;\n    height: 5.7rem;\n    line-height: 5.7rem; }\n    .header a:hover {\n      background: rgba(0, 0, 0, 0.4); }\n", ""]);
+	exports.push([module.id, ".header {\n  background: #111;\n  height: 0;\n  display: flex;\n  position: relative;\n  z-index: 10; }\n  .header img {\n    padding: 1rem;\n    margin: 0;\n    display: block;\n    width: 16.2rem;\n    height: 5.7rem; }\n  .header a {\n    margin-right: 0;\n    margin-left: auto;\n    padding: 0 2rem;\n    color: #FFFFFF;\n    text-transform: uppercase;\n    letter-spacing: 1px;\n    text-decoration: none;\n    height: 5.7rem;\n    line-height: 5.7rem; }\n    .header a:hover {\n      background: rgba(0, 0, 0, 0.4); }\n  .header .backButton {\n    background: none;\n    border: solid 1 px white;\n    border-radius: 100px;\n    margin: 8px;\n    font-size: 18px;\n    color: white;\n    padding: 0 20px; }\n    .header .backButton:hover {\n      background: gold;\n      color: black; }\n", ""]);
 
 	// exports
 
@@ -3347,25 +3354,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var _props$layouts$name$c = _this2.props.layouts[name].card,
 	              width = _props$layouts$name$c.width,
 	              height = _props$layouts$name$c.height;
+	          var usecases = _this2.props.layouts[name].usecases;
 
-
-	          var ratioHeight = height / width * 270;
+	          var ratioHeight = height / width;
 
 	          return React.createElement(
 	            CardLayout,
-	            { key: index,
+	            {
+	              key: index,
 	              onClick: _this2.handleClick,
 	              layout: _this2.props.layout,
 	              name: name,
-	              ratioHeight: ratioHeight },
+	              ratioHeight: ratioHeight
+	            },
 	            React.createElement(
 	              'h4',
 	              null,
 	              name
 	            ),
-	            width,
-	            ' \xD7 ',
-	            height
+	            React.createElement(
+	              'p',
+	              null,
+	              width,
+	              ' \xD7 ',
+	              height
+	            ),
+	            usecases && React.createElement(
+	              'p',
+	              null,
+	              usecases.map(function (u) {
+	                return React.createElement(
+	                  'span',
+	                  null,
+	                  u
+	                );
+	              })
+	            )
 	          );
 	        })
 	      );
@@ -3433,7 +3457,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        { role: 'button',
 	          onClick: this.handleClick,
 	          className: 'layout' + (layout === name ? ' layout--selected' : ''),
-	          style: { height: ratioHeight + 'px', width: '270px' } },
+	          style: { height: ratioHeight * 200 + 'px', width: '200px' } },
 	        React.createElement(
 	          'div',
 	          null,

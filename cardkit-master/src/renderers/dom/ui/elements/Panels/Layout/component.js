@@ -26,8 +26,9 @@ class LayoutPanel extends React.Component {
         <h3>Layout</h3>
 
         {Object.keys(this.props.layouts).map((name, index) => {
-          const { width, height, usecases } = this.props.layouts[name].card
-          const ratioHeight = height / width * 270
+          const { width, height } = this.props.layouts[name].card
+          const { usecases } = this.props.layouts[name]
+          const ratioHeight = height / width
 
           return (
             <CardLayout
@@ -39,7 +40,9 @@ class LayoutPanel extends React.Component {
             >
               <h4>{ name }</h4>
               <p>{ width } &times; { height }</p>
-              { usescases && <p>{ usecases }</p> }
+              { usecases && <p>
+                { usecases.map(u => <span>{ u }</span>) }
+              </p> }
             </CardLayout>
           )
         })}
