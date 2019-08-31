@@ -97,7 +97,6 @@ class Sidebar extends React.Component {
   render () {
     return (
       <aside className={'sidebar' + (this.state.panel ? ' sidebar--open' : '')}>
-
         <main className="panels">
           {(() => {
             if (this.props.templates) {
