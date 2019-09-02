@@ -838,7 +838,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Setup an object to contain our layer data
 	        var layerData = {};
-	        var layerOptions = _this5.props.configuration.template.layerItems[key].settings;
+	        var layout = _this5.props.configuration.name;
+	        var layerOptions = _this5.props.configuration.template.layerItems[layout][key].settings;
 	        console.log({ layerOptions: layerOptions });
 
 	        // Iterate over the properties of the layer, and compute the value (handles getters, functions, and object implementations such as `y`)
@@ -1232,6 +1233,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      sidebarOpen: true
 	    };
 
+	    console.log('ui state', _this.state);
+	    console.log('ui props', _this.props);
+
 	    _this.updateConfiguration = _this.updateConfiguration.bind(_this);
 	    _this.updateTemplate = _this.updateTemplate.bind(_this);
 	    _this.updateTheme = _this.updateTheme.bind(_this);
@@ -1270,13 +1274,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // ! activeCardLayout is a global variable in the config file
 	      // ! It is used to dynamically set x-position on some child elements
 	      window.activeCardWidth = window.layouts[layout].card.width;
-
 	      console.log(window.layouts, window.activeCardWidth);
 	      var configuration = this.props.cardKit.computeConfiguration({
 	        template: this.state.template,
 	        theme: this.state.theme,
 	        layout: layout
 	      });
+
+	      configuration.layout = layout;
 
 	      this.setState({
 	        configuration: configuration,
@@ -1318,13 +1323,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return React.createElement(
 	        'div',
 	        null,
 	        React.createElement(
 	          'main',
 	          { className: 'main' },
-	          React.createElement(Sidebar, { configuration: this.state.configuration,
+	          React.createElement(Sidebar, {
+	            configuration: this.state.configuration,
 
 	            template: this.state.template,
 	            templates: this.props.templates,
@@ -1333,7 +1341,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            themes: this.props.themes,
 
 	            layout: this.state.layout,
-	            layouts: this.props.layouts,
+	            layouts: Object.keys(this.props.layouts).filter(function (key) {
+	              return Object.keys(_this2.props.configuration.template.layerItems).includes(key);
+	            }).reduce(function (output, key) {
+	              var update = output;
+	              update[key] = _this2.props.layouts[key];
+	              return update;
+	            }, {}),
 
 	            onConfigurationChange: this.updateConfiguration,
 	            onTemplateChange: this.updateTemplate,
@@ -1345,7 +1359,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          }),
 	          React.createElement(Canvas, { ref: 'canvas',
 	            sidebarOpen: this.state.sidebarOpen,
-	            configuration: this.state.configuration
+	            configuration: this.state.configuration,
+	            layout: this.state.layout
 	          })
 	        )
 	      );
@@ -1949,6 +1964,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'handleLayoutChange',
 	    value: function handleLayoutChange(layout) {
+	      console.log('layout chenge...', layout);
 	      this.props.onLayoutChange(layout);
 	    }
 	  }, {
@@ -1982,7 +1998,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          }(),
 	          function () {
 	            if (_this2.props.layouts) {
-	              return React.createElement(Layout, { layouts: _this2.props.layouts,
+	              console.log('sidebar layouts', _this2.props.layouts, _this2.props.layout);
+	              return React.createElement(Layout, {
+	                layouts: _this2.props.layouts,
 	                layout: _this2.props.layout,
 	                active: _this2.isPanel('layout'),
 	                onLayoutChange: _this2.handleLayoutChange });

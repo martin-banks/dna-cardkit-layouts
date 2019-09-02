@@ -185,8 +185,9 @@ class Card extends React.Component {
 
       // Setup an object to contain our layer data
       const layerData = {}
-      const layerOptions = this.props.configuration.template.layerItems[key].settings
-      console.log({ layerOptions})
+      const layout = this.props.configuration.name
+      const layerOptions = this.props.configuration.template.layerItems[layout][key].settings
+      console.log({ layerOptions })
 
 
       // Iterate over the properties of the layer, and compute the value (handles getters, functions, and object implementations such as `y`)

@@ -490,7 +490,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Setup an object to contain our layer data
 	        var layerData = {};
-	        var layerOptions = _this5.props.configuration.template.layerItems[key].settings;
+	        var layout = _this5.props.configuration.name;
+	        var layerOptions = _this5.props.configuration.template.layerItems[layout][key].settings;
 	        console.log({ layerOptions: layerOptions });
 
 	        // Iterate over the properties of the layer, and compute the value (handles getters, functions, and object implementations such as `y`)

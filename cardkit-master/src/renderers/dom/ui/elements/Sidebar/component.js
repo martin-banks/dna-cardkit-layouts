@@ -82,6 +82,7 @@ class Sidebar extends React.Component {
   }
 
   handleLayoutChange (layout) {
+    console.log('layout chenge...', layout)
     this.props.onLayoutChange(layout);
   }
 
@@ -109,7 +110,9 @@ class Sidebar extends React.Component {
 
           {(() => {
             if (this.props.layouts) {
-              return (<Layout layouts={this.props.layouts}
+              console.log('sidebar layouts', this.props.layouts, this.props.layout)
+              return (<Layout
+                layouts={ this.props.layouts }
                 layout={this.props.layout}
                 active={this.isPanel('layout')}
                 onLayoutChange={this.handleLayoutChange} />);

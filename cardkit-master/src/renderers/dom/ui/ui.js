@@ -25,6 +25,9 @@ class UI extends React.Component {
       sidebarOpen: true
     };
 
+    console.log('ui state', this.state)
+    console.log('ui props', this.props)
+
     this.updateConfiguration = this.updateConfiguration.bind(this);
     this.updateTemplate = this.updateTemplate.bind(this);
     this.updateTheme = this.updateTheme.bind(this);
@@ -58,13 +61,14 @@ class UI extends React.Component {
     // ! activeCardLayout is a global variable in the config file
     // ! It is used to dynamically set x-position on some child elements
     window.activeCardWidth = window.layouts[layout].card.width
-
     console.log(window.layouts, window.activeCardWidth)
     const configuration = this.props.cardKit.computeConfiguration({
       template: this.state.template,
       theme: this.state.theme,
       layout: layout
     });
+
+    configuration.layout = layout
 
     this.setState({
       configuration: configuration,
@@ -107,7 +111,8 @@ class UI extends React.Component {
 
         <main className="main">
 
-          <Sidebar configuration={this.state.configuration}
+          <Sidebar
+            configuration={this.state.configuration}
 
             template={this.state.template}
             templates={this.props.templates}
@@ -116,7 +121,15 @@ class UI extends React.Component {
             themes={this.props.themes}
 
             layout={this.state.layout}
-            layouts={this.props.layouts}
+            layouts={
+              Object.keys(this.props.layouts)
+                .filter(key => Object.keys(this.props.configuration.template.layerItems).includes(key))
+                .reduce((output, key) => {
+                  const update = output
+                  update[key] = this.props.layouts[key]
+                  return update
+                }, {})
+            }
 
             onConfigurationChange={this.updateConfiguration}
             onTemplateChange={this.updateTemplate}
@@ -130,6 +143,7 @@ class UI extends React.Component {
           <Canvas ref="canvas"
             sidebarOpen={this.state.sidebarOpen}
             configuration={this.state.configuration}
+            layout={ this.state.layout }
           />
 
         </main>
