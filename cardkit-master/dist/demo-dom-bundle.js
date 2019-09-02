@@ -720,10 +720,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // Get the layer's currently configured Y position
 	      var attachYLayerPosition = this.getLayerValue(layers, layer, 'y');
 
+	      console.log('calculateYPos', { layers: layers, layer: layer });
+
 	      // If this is an object and has the attach property
 	      if ((typeof attachYLayerPosition === 'undefined' ? 'undefined' : _typeof(attachYLayerPosition)) === 'object' && attachYLayerPosition.attach !== 'undefined') {
 	        // Get the layer to attach to
-	        var attachYLayer = layers[layer.y.attach];
+	        // let attachYLayer = layers[layer.y.attach];
+	        var attachYLayer = layers.find(function (l) {
+	          console.log('finding...', l.name, layer.y.attach);
+	          return l.name === layer.y.attach;
+	        });
+	        console.log({ attachYLayer: attachYLayer });
 
 	        // Calculate the Y offset
 	        var attachYLayerHeight = 0;
@@ -767,7 +774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (typeof layer[key] === 'function') {
 	        return layer[key](layers, this.refs.svg);
 	      }
-
+	      console.log('getLayerValue', layer[key]);
 	      return layer[key];
 	    }
 
@@ -2248,7 +2255,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'h3',
 	          null,
-	          this.props.layer.name
+	          this.props.layer.label
 	        ),
 	        React.createElement(
 	          'div',

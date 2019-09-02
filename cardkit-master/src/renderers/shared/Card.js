@@ -81,10 +81,17 @@ class Card extends React.Component {
     // Get the layer's currently configured Y position
     let attachYLayerPosition = this.getLayerValue(layers, layer, 'y');
 
+    console.log('calculateYPos', { layers, layer })
+
     // If this is an object and has the attach property
     if (typeof attachYLayerPosition === 'object' && attachYLayerPosition.attach !== 'undefined') {
       // Get the layer to attach to
-      let attachYLayer = layers[layer.y.attach];
+      // let attachYLayer = layers[layer.y.attach];
+      let attachYLayer = layers.find(l => {
+        console.log('finding...', l.name, layer.y.attach)
+        return l.name === layer.y.attach
+      })
+      console.log({ attachYLayer })
 
       // Calculate the Y offset
       let attachYLayerHeight = 0;
@@ -125,7 +132,7 @@ class Card extends React.Component {
     if (typeof layer[key] === 'function') {
       return layer[key](layers, this.refs.svg);
     }
-
+    console.log('getLayerValue', layer[key])
     return layer[key];
   }
 

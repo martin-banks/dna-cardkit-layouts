@@ -29,7 +29,7 @@ class LayerConfig extends React.Component {
   render () {
     return (
       <div className="layer-config">
-        <h3>{this.props.layer.name}</h3>
+        <h3>{this.props.layer.label}</h3>
 
         <div className="element-config">
           <div>
