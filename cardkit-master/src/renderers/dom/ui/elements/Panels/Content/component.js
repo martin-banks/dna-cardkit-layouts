@@ -16,6 +16,7 @@ class ContentPanel extends React.Component {
   }
 
   handleUpdate (name, element) {
+    console.log('component.js', { name, element })
     let configuration = this.props.configuration;
     configuration.layers[name] = element;
 

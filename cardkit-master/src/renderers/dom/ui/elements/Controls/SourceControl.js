@@ -27,8 +27,11 @@ class SizeControl extends React.Component {
     const reader = new window.FileReader();
 
     reader.onload = () => {
+      console.log('sourceControl props', this.props)
       let layer = this.props.layer;
       layer['src'] = reader.result;
+
+      console.log('suorceControl update, reader.resultq', reader.result)
 
       this.props.onNewValue('src', reader.result);
     };

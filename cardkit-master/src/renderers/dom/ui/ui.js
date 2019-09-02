@@ -34,6 +34,8 @@ class UI extends React.Component {
   }
 
   updateConfiguration (configuration) {
+    console.log('configuration change', this.state.configuration)
+    console.log('new configuration', configuration)
     this.setState({
       configuration: configuration
     });

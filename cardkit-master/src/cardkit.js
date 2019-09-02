@@ -42,8 +42,8 @@ class CardKit {
         if (!this._isValidTemplatesConfiguration(options.templates)) {
           throw new Error('Invalid templates configuration object provided');
         }
-
         this.templates = options.templates
+
       } else {
         this.templates = null;
       }
@@ -52,18 +52,18 @@ class CardKit {
         if (!this._isValidThemesConfiguration(options.themes)) {
           throw new Error('Invalid themes configuration object provided');
         }
-
         this.themes = options.themes
+
       } else {
         this.themes = null;
-      }
 
+      }
       if (options.layouts) {
         if (!this._isValidLayoutsConfiguration(options.layouts)) {
           throw new Error('Invalid layouts configuration object provided');
         }
-
         this.layouts = options.layouts
+
       } else {
         this.layouts = null;
       }

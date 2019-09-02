@@ -328,7 +328,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          preserveAspectRatio = _props.preserveAspectRatio;
 
 
-	      console.log('Image props', this.props);
 	      return React.createElement('image', _extends({
 	        id: id,
 	        xlinkHref: href,
@@ -350,7 +349,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @class The Card React element
 	 */
 
-
 	var Card = function (_React$Component2) {
 	  _inherits(Card, _React$Component2);
 
@@ -366,10 +364,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * Calculates the Y position of an element based on any attachments etc.
-	     *
 	     * @param {object} layers - The object of all layers
 	     * @param {object} layer - The layer to calculate the Y position for
-	     *
 	     * @return {integer} The Y position
 	     */
 	    value: function calculateYPosition(layers, layer) {
@@ -410,7 +406,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * Returns the value for a given layer property
-	     *
 	     * @param {object} layers - The object of all layers
 	     * @param {object} layer - The layer to get the value for
 	     * @param {object} key - The key of the value to get from the layer
@@ -430,7 +425,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * Compute the gradient elements to render to the <defs> element
-	     *
 	     * @param {object} layers - The configuration object representing the layers that may require gradients
 	     *
 	     * @return {array} An array of React elements to render to the <defs> element
@@ -464,7 +458,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * Compute the layers to render on the Card
-	     *
 	     * @param {object} layers - The configuration object representing the layers to render
 	     *
 	     * @return {array} An array of React elements to render on the card
@@ -481,6 +474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // Iterate over the layers
 	      Object.keys(layers).forEach(function (key) {
 	        layer = layers[key];
+	        console.log('layer key', { key: key, layers: layers, layer: layer });
 
 	        // If the layer is hidden, ignore it
 	        if (_this5.getLayerValue(layers, layer, 'hidden') === true) {
@@ -489,6 +483,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Setup an object to contain our layer data
 	        var layerData = {};
+	        var layerOptions = _this5.props.configuration.template.layerItems[key].settings;
+	        console.log({ layerOptions: layerOptions });
 
 	        // Iterate over the properties of the layer, and compute the value (handles getters, functions, and object implementations such as `y`)
 	        Object.keys(layer).forEach(function (k) {
@@ -540,32 +536,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	          case 'clip_half_left':
 	            array.push(React.createElement(
 	              'g',
-	              null,
+	              { key: 'group-key-' + key },
 	              React.createElement(
 	                'defs',
 	                null,
 	                React.createElement(
 	                  'clipPath',
-	                  { id: 'clip-half-left' },
+	                  { id: 'clip-half-left-' + layerOptions.label },
 	                  React.createElement('rect', {
-	                    id: 'rect-half-left',
-	                    x: '0',
-	                    y: '0',
-	                    width: '49%',
-	                    height: '100%'
+	                    id: 'rect-half-left-' + layerOptions.label,
+	                    x: layerOptions.x,
+	                    y: layerOptions.y,
+	                    width: layerOptions.width,
+	                    height: layerOptions.height
 	                  })
 	                )
 	              ),
 	              React.createElement(
 	                'g',
-	                { clipPath: 'url(#clip-half-left)' },
+	                { clipPath: 'url(#clip-half-left-' + layerOptions.label + ')' },
 	                React.createElement('rect', {
 	                  width: '100%',
 	                  height: '100%',
 	                  fill: '#272730'
 	                }),
 	                React.createElement(Image, {
-	                  id: 'image-half-left',
+	                  id: 'image-half-left-' + layerOptions.label,
 	                  x: layerData.x,
 	                  y: _this5.calculateYPosition(layers, layerData),
 	                  href: layerData.src,
@@ -574,7 +570,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                  draggable: layerData.draggable,
 	                  transform: layerData.transform,
 	                  opacity: layerData.opacity,
-	                  key: key
+	                  key: 'image-key-' + key
 	                })
 	              )
 	            ));
@@ -675,7 +671,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * Compute the fonts needed for the card
-	     *
 	     * @param {object} fonts - The fonts to use when rendering this card
 	     *
 	     * @return {array} An array of React elements to render in the <defs /> element of the SVG
@@ -704,7 +699,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * Renders the card
-	     *
 	     * @return {object} JSX for the React Component
 	     */
 
@@ -717,8 +711,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          fonts = _props$configuration.fonts,
 	          layers = _props$configuration.layers;
 
+	      console.log('card props', this.props);
 	      // Compute layers, gradients and fonts
-
 	      var layerArray = this.computeLayers(layers);
 	      var gradientsArray = this.computeGradients(layers);
 	      var fontsArray = this.computeFonts(fonts);
@@ -902,7 +896,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          if (!this._isValidTemplatesConfiguration(options.templates)) {
 	            throw new Error('Invalid templates configuration object provided');
 	          }
-
 	          this.templates = options.templates;
 	        } else {
 	          this.templates = null;
@@ -912,17 +905,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	          if (!this._isValidThemesConfiguration(options.themes)) {
 	            throw new Error('Invalid themes configuration object provided');
 	          }
-
 	          this.themes = options.themes;
 	        } else {
 	          this.themes = null;
 	        }
-
 	        if (options.layouts) {
 	          if (!this._isValidLayoutsConfiguration(options.layouts)) {
 	            throw new Error('Invalid layouts configuration object provided');
 	          }
-
 	          this.layouts = options.layouts;
 	        } else {
 	          this.layouts = null;

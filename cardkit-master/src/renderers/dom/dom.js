@@ -25,6 +25,7 @@ class CardKitDOM extends CardKitRenderer {
     }
 
     super(cardkit);
+    console.log('dom.js library', { cardkit })
 
     // Store render IDs
     this.renderedCardID = null;
@@ -43,9 +44,23 @@ class CardKitDOM extends CardKitRenderer {
 
     const element = document.getElementById(id);
 
-    const template = ((this.cardkit.templates) ? Object.keys(this.cardkit.templates)[0] : false);
-    const theme = ((this.cardkit.themes) ? Object.keys(this.cardkit.themes)[0] : false);
-    const layout = ((this.cardkit.layouts) ? Object.keys(this.cardkit.layouts)[0] : false);
+    const template = (
+      (this.cardkit.templates)
+        ? Object.keys(this.cardkit.templates)[0]
+        : false
+    )
+    const theme = (
+      (this.cardkit.themes)
+        ? Object.keys(this.cardkit.themes)[0]
+        : false
+    )
+    const layout = (
+      (this.cardkit.layouts)
+        ? Object.keys(this.cardkit.layouts)[0]
+        : false
+    )
+
+    // console.log('cardkit options?', this.cardkit)
 
     this.renderedUIID = id;
     ReactDOM.render(
@@ -80,7 +95,11 @@ class CardKitDOM extends CardKitRenderer {
     this.renderedCardID = id;
 
     ReactDOM.render(
-      React.createElement(Card, {configuration: this.computeConfiguration(options)}),
+      React.createElement(Card, {
+        configuration: this.computeConfiguration(options),
+        // layout: 'foo',
+        // template,
+      }),
       element
     );
   }

@@ -66,14 +66,15 @@ class Image extends DraggableBase {
  * @name Card
  * @class The Card React element
  */
+
+
+
 class Card extends React.Component {
 
   /**
    * Calculates the Y position of an element based on any attachments etc.
-   *
    * @param {object} layers - The object of all layers
    * @param {object} layer - The layer to calculate the Y position for
-   *
    * @return {integer} The Y position
    */
   calculateYPosition (layers, layer) {
@@ -114,7 +115,6 @@ class Card extends React.Component {
 
   /**
    * Returns the value for a given layer property
-   *
    * @param {object} layers - The object of all layers
    * @param {object} layer - The layer to get the value for
    * @param {object} key - The key of the value to get from the layer
@@ -131,7 +131,6 @@ class Card extends React.Component {
 
   /**
    * Compute the gradient elements to render to the <defs> element
-   *
    * @param {object} layers - The configuration object representing the layers that may require gradients
    *
    * @return {array} An array of React elements to render to the <defs> element
@@ -159,7 +158,6 @@ class Card extends React.Component {
 
   /**
    * Compute the layers to render on the Card
-   *
    * @param {object} layers - The configuration object representing the layers to render
    *
    * @return {array} An array of React elements to render on the card
@@ -171,6 +169,7 @@ class Card extends React.Component {
     // Iterate over the layers
     Object.keys(layers).forEach((key) => {
       layer = layers[key];
+      console.log('layer key', { key, layers, layer })
 
       // If the layer is hidden, ignore it
       if (this.getLayerValue(layers, layer, 'hidden') === true) {
@@ -178,7 +177,10 @@ class Card extends React.Component {
       };
 
       // Setup an object to contain our layer data
-      const layerData = {};
+      const layerData = {}
+      const layerOptions = this.props.configuration.template.layerItems[key].settings
+      console.log({ layerOptions})
+
 
       // Iterate over the properties of the layer, and compute the value (handles getters, functions, and object implementations such as `y`)
       Object.keys(layer).forEach((k) => {
@@ -226,26 +228,26 @@ class Card extends React.Component {
             key={key} />);
           break;
         case 'clip_half_left':
-          array.push(<g>
+          array.push(<g key={ `group-key-${key}` }>
             <defs>
-              <clipPath id="clip-half-left">
+              <clipPath id={ `clip-half-left-${layerOptions.label}` }>
                 <rect
-                  id="rect-half-left"
-                  x="0"
-                  y="0"
-                  width="49%"
-                  height="100%"
+                  id={ `rect-half-left-${layerOptions.label}` }
+                  x={ layerOptions.x }
+                  y={ layerOptions.y }
+                  width={ layerOptions.width }
+                  height={ layerOptions.height }
                 />
               </clipPath>
             </defs>
-            <g clipPath="url(#clip-half-left)">
+            <g clipPath={ `url(#clip-half-left-${layerOptions.label})` }>
               <rect
                 width="100%"
                 height="100%"
                 fill="#272730"
               />
               <Image
-                id="image-half-left"
+                id={ `image-half-left-${layerOptions.label}` }
                 x={layerData.x}
                 y={this.calculateYPosition(layers, layerData)}
                 href={layerData.src}
@@ -254,7 +256,7 @@ class Card extends React.Component {
                 draggable={layerData.draggable}
                 transform={layerData.transform}
                 opacity={layerData.opacity}
-                key={key}
+                key={ `image-key-${key}` }
               />
             </g>
           </g>);
@@ -347,7 +349,6 @@ class Card extends React.Component {
 
   /**
    * Compute the fonts needed for the card
-   *
    * @param {object} fonts - The fonts to use when rendering this card
    *
    * @return {array} An array of React elements to render in the <defs /> element of the SVG
@@ -376,13 +377,12 @@ class Card extends React.Component {
 
   /**
    * Renders the card
-   *
    * @return {object} JSX for the React Component
    */
   render () {
     // Grab our configuration
     const { card, fonts, layers } = this.props.configuration;
-
+    console.log('card props', this.props)
     // Compute layers, gradients and fonts
     const layerArray = this.computeLayers(layers);
     const gradientsArray = this.computeGradients(layers);
