@@ -235,39 +235,75 @@ class Card extends React.Component {
             preserveAspectRatio={layerData.preserveAspectRatio}
             key={key} />);
           break;
-        case 'clip_half_left':
-          array.push(<g key={ `group-key-${key}` }>
-            <defs>
-              <clipPath id={ `clip-half-left-${layerOptions.label}` }>
+
+          case 'cropped_image':
+            array.push(<g key={ `group-key-${key}` }>
+              <defs>
+                <clipPath id={ `crop-${layerOptions.label}` }>
+                  <rect
+                    id={ `crop-rect-${layerOptions.label}` }
+                    x={ layerOptions.x }
+                    y={ layerOptions.y }
+                    width={ layerOptions.width }
+                    height={ layerOptions.height }
+                  />
+                </clipPath>
+              </defs>
+              <g clipPath={ `url(#crop-${layerOptions.label})` }>
                 <rect
-                  id={ `rect-half-left-${layerOptions.label}` }
-                  x={ layerOptions.x }
-                  y={ layerOptions.y }
-                  width={ layerOptions.width }
-                  height={ layerOptions.height }
+                  width="100%"
+                  height="100%"
+                  fill="#ccc"
                 />
-              </clipPath>
-            </defs>
-            <g clipPath={ `url(#clip-half-left-${layerOptions.label})` }>
-              <rect
-                width="100%"
-                height="100%"
-                fill="#272730"
-              />
-              <Image
-                id={ `image-half-left-${layerOptions.label}` }
-                x={layerData.x}
-                y={this.calculateYPosition(layers, layerData)}
-                href={layerData.src}
-                height={layerData.height}
-                width={layerData.width}
-                draggable={layerData.draggable}
-                transform={layerData.transform}
-                opacity={layerData.opacity}
-                key={ `image-key-${key}` }
-              />
-            </g>
-          </g>);
+                <Image
+                  id={ `image-cropped-${layerOptions.label}` }
+                  x={layerData.x}
+                  y={this.calculateYPosition(layers, layerData)}
+                  href={layerData.src}
+                  height={layerData.height}
+                  width={layerData.width}
+                  draggable={layerData.draggable}
+                  transform={layerData.transform}
+                  opacity={layerData.opacity}
+                  key={ `cropped-image-key-${key}` }
+                />
+              </g>
+            </g>);
+            break;
+
+            case 'clip_half_left':
+              array.push(<g key={ `group-key-${key}` }>
+                <defs>
+                  <clipPath id={ `clip-half-left-${layerOptions.label}` }>
+                    <rect
+                      id={ `rect-half-left-${layerOptions.label}` }
+                      x={ layerOptions.x }
+                      y={ layerOptions.y }
+                      width={ layerOptions.width }
+                      height={ layerOptions.height }
+                    />
+                  </clipPath>
+                </defs>
+                <g clipPath={ `url(#clip-half-left-${layerOptions.label})` }>
+                  <rect
+                    width="100%"
+                    height="100%"
+                    fill="#ccc"
+                  />
+                  <Image
+                    id={ `image-half-left-${layerOptions.label}` }
+                    x={layerData.x}
+                    y={this.calculateYPosition(layers, layerData)}
+                    href={layerData.src}
+                    height={layerData.height}
+                    width={layerData.width}
+                    draggable={layerData.draggable}
+                    transform={layerData.transform}
+                    opacity={layerData.opacity}
+                    key={ `image-key-${key}` }
+                  />
+                </g>
+              </g>);
           break;
 
           case 'clip_half_right':
@@ -306,14 +342,18 @@ class Card extends React.Component {
               break;
 
         case 'rectangle':
-          array.push(<Rectangle x={layerData.x}
-            y={this.calculateYPosition(layers, layerData)}
-            fill={layerData.fill}
-            height={layerData.height}
-            width={layerData.width}
-            draggable={layerData.draggable}
-            transform={layerData.transform}
-            key={key} />);
+          array.push(
+            <Rectangle
+              x={ layerOptions.x || layerData.x }
+              y={ layerOptions.y || this.calculateYPosition(layers, layerData) }
+              fill={ layerOptions.fill || layerData.fill }
+              height={ layerOptions.height || layerData.height }
+              width={ layerOptions.width || layerData.width }
+              draggable={ layerOptions.draggable || layerData.draggable }
+              transform={ layerOptions.transform || layerData.transform }
+              key={key}
+            />
+          )
           break;
         case 'circle':
           array.push(<Circle x={layerData.x}

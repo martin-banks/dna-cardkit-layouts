@@ -541,6 +541,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	              preserveAspectRatio: layerData.preserveAspectRatio,
 	              key: key }));
 	            break;
+
+	          case 'cropped_image':
+	            array.push(React.createElement(
+	              'g',
+	              { key: 'group-key-' + key },
+	              React.createElement(
+	                'defs',
+	                null,
+	                React.createElement(
+	                  'clipPath',
+	                  { id: 'crop-' + layerOptions.label },
+	                  React.createElement('rect', {
+	                    id: 'crop-rect-' + layerOptions.label,
+	                    x: layerOptions.x,
+	                    y: layerOptions.y,
+	                    width: layerOptions.width,
+	                    height: layerOptions.height
+	                  })
+	                )
+	              ),
+	              React.createElement(
+	                'g',
+	                { clipPath: 'url(#crop-' + layerOptions.label + ')' },
+	                React.createElement('rect', {
+	                  width: '100%',
+	                  height: '100%',
+	                  fill: '#ccc'
+	                }),
+	                React.createElement(Image, {
+	                  id: 'image-cropped-' + layerOptions.label,
+	                  x: layerData.x,
+	                  y: _this5.calculateYPosition(layers, layerData),
+	                  href: layerData.src,
+	                  height: layerData.height,
+	                  width: layerData.width,
+	                  draggable: layerData.draggable,
+	                  transform: layerData.transform,
+	                  opacity: layerData.opacity,
+	                  key: 'cropped-image-key-' + key
+	                })
+	              )
+	            ));
+	            break;
+
 	          case 'clip_half_left':
 	            array.push(React.createElement(
 	              'g',
@@ -566,7 +610,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                React.createElement('rect', {
 	                  width: '100%',
 	                  height: '100%',
-	                  fill: '#272730'
+	                  fill: '#ccc'
 	                }),
 	                React.createElement(Image, {
 	                  id: 'image-half-left-' + layerOptions.label,
@@ -628,14 +672,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            break;
 
 	          case 'rectangle':
-	            array.push(React.createElement(Rectangle, { x: layerData.x,
-	              y: _this5.calculateYPosition(layers, layerData),
-	              fill: layerData.fill,
-	              height: layerData.height,
-	              width: layerData.width,
-	              draggable: layerData.draggable,
-	              transform: layerData.transform,
-	              key: key }));
+	            array.push(React.createElement(Rectangle, {
+	              x: layerOptions.x || layerData.x,
+	              y: layerOptions.y || _this5.calculateYPosition(layers, layerData),
+	              fill: layerOptions.fill || layerData.fill,
+	              height: layerOptions.height || layerData.height,
+	              width: layerOptions.width || layerData.width,
+	              draggable: layerOptions.draggable || layerData.draggable,
+	              transform: layerOptions.transform || layerData.transform,
+	              key: key
+	            }));
 	            break;
 	          case 'circle':
 	            array.push(React.createElement(Circle, { x: layerData.x,
