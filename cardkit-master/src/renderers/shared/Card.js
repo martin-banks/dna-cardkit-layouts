@@ -236,6 +236,23 @@ class Card extends React.Component {
             key={key} />);
           break;
 
+          case 'overlayImage':
+          array.push(
+            <Image
+              x={ layerOptions.x || layerData.x }
+              y={ layerOptions.y || this.calculateYPosition(layers, layerData) }
+              href={ layerOptions.src || layerData.src }
+              height={ layerOptions.height || layerData.height }
+              width={ layerOptions.width || layerData.width }
+              draggable={ layerData.draggable }
+              transform={ layerData.transform }
+              opacity={ layerData.opacity }
+              preserveAspectRatio={ layerData.preserveAspectRatio }
+              key={ key }
+            />
+          )
+          break;
+
           case 'cropped_image':
             array.push(<g key={ `group-key-${key}` }>
               <defs>
