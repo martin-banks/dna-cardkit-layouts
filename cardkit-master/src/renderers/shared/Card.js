@@ -224,17 +224,19 @@ class Card extends React.Component {
           </Text>);
           break;
         case 'image':
-          array.push(<Image x={layerData.x}
-            y={this.calculateYPosition(layers, layerData)}
-            href={layerData.src}
-            height={layerData.height}
-            width={layerData.width}
-            draggable={layerData.draggable}
-            transform={layerData.transform}
-            opacity={layerData.opacity}
-            preserveAspectRatio={layerData.preserveAspectRatio}
-            key={key} />);
-          break;
+          array.push(<Image
+            x={ layerOptions.x || layerData.x }
+            y={ layerOptions.y || this.calculateYPosition(layers, layerData)} 
+            href={ layerOptions.src || layerData.src }
+            height={ layerOptions.height || layerData.height }
+            width={ layerOptions.width || layerData.width }
+            draggable={ layerData.draggable }
+            transform={ layerData.transform }
+            opacity={ layerOptions.opacity || layerData.opacity }
+            preserveAspectRatio={ layerData.preserveAspectRatio }
+            key={ key}
+          />)
+          break
 
           case 'overlayImage':
           array.push(
