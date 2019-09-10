@@ -67,6 +67,13 @@ class CardKit {
       } else {
         this.layouts = null;
       }
+      
+
+      if (options.defaultLayout) {
+        this.defaultLayout = options.defaultLayout
+      } else {
+        this.defaultLayout = null;
+      }
     }
   }
 
@@ -156,6 +163,11 @@ class CardKit {
         // Get the layout based on the name and merge it onto the base configuration
         configuration = deepExtend(configuration, this.layouts[options.layout]);
       }
+
+      if (options.activeLayout && typeof this.layoutsactiveLayout !== 'undefined') {
+        // Get the default layout (image size) to render nad add into the base configuration
+        configuration = deepExtend(configuration, this.layoutsactiveLayout)
+      }
     }
 
     // Return the computed configuration
@@ -169,7 +181,14 @@ class CardKit {
    * @param {object} options - Any options to supply (templates, themes, layouts)
    * @param {boolean} rerender - Whether or not to attempt to rerender the image
    */
-  updateConfiguration (configuration, options = { layouts: null, templates: null, themes: null }, rerender = true) {
+  updateConfiguration (
+    configuration,
+    options = {
+      layouts: null,
+      templates: null,
+      themes: null,
+      // defaultTemplate: '4x3',
+    }, rerender = true) {
     this.configuration = configuration;
 
     this._configureOptions(options);

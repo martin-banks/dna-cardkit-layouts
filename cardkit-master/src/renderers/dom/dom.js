@@ -54,9 +54,12 @@ class CardKitDOM extends CardKitRenderer {
         ? Object.keys(this.cardkit.themes)[0]
         : false
     )
+
+    console.log('\n\n', this.cardkit, '\n\n')
+    // '4x3' // Object.keys(this.cardkit.layouts)[0]
     const layout = (
       (this.cardkit.layouts)
-        ? Object.keys(this.cardkit.layouts)[0]
+        ? this.cardkit.defaultLayout
         : false
     )
 
@@ -73,6 +76,7 @@ class CardKitDOM extends CardKitRenderer {
         templates: this.cardkit.templates,
         themes: this.cardkit.themes,
         layouts: this.cardkit.layouts,
+        defaultLayout: this.cardkit.defaultLayout,
         cardKit: this
       }),
       element

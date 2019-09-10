@@ -136,6 +136,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	          this.layouts = null;
 	        }
+
+	        if (options.defaultLayout) {
+	          this.defaultLayout = options.defaultLayout;
+	        } else {
+	          this.defaultLayout = null;
+	        }
 	      }
 	    }
 
@@ -245,6 +251,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          // Get the layout based on the name and merge it onto the base configuration
 	          configuration = deepExtend(configuration, this.layouts[options.layout]);
 	        }
+
+	        if (options.activeLayout && typeof this.layoutsactiveLayout !== 'undefined') {
+	          // Get the default layout (image size) to render nad add into the base configuration
+	          configuration = deepExtend(configuration, this.layoutsactiveLayout);
+	        }
 	      }
 
 	      // Return the computed configuration
@@ -262,7 +273,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'updateConfiguration',
 	    value: function updateConfiguration(configuration) {
-	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { layouts: null, templates: null, themes: null };
+	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+	        layouts: null,
+	        templates: null,
+	        themes: null
+	        // defaultTemplate: '4x3',
+	      };
 	      var rerender = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	      this.configuration = configuration;

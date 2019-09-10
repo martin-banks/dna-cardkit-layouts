@@ -604,6 +604,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ));
 	            break;
 
+	          case 'cropped_image_circle':
+	            array.push(React.createElement(
+	              'g',
+	              { key: 'group-key-' + key },
+	              React.createElement(
+	                'defs',
+	                null,
+	                React.createElement(
+	                  'clipPath',
+	                  { id: 'crop-' + layerOptions.label },
+	                  React.createElement('circle', {
+	                    id: 'crop-rect-' + layerOptions.label,
+	                    cx: layerOptions.cx || 0,
+	                    cy: layerOptions.cy || 0,
+	                    r: layerOptions.r || 0
+	                    // x={ layerOptions.x }
+	                    // y={ layerOptions.y }
+	                    // width={ layerOptions.width }
+	                    // height={ layerOptions.height }
+	                  })
+	                )
+	              ),
+	              React.createElement(
+	                'g',
+	                { clipPath: 'url(#crop-' + layerOptions.label + ')' },
+	                React.createElement('rect', {
+	                  width: '100%',
+	                  height: '100%',
+	                  fill: '#ccc'
+	                }),
+	                React.createElement(Image, {
+	                  id: 'image-cropped-' + layerOptions.label,
+	                  x: layerData.x,
+	                  y: _this5.calculateYPosition(layers, layerData),
+	                  href: layerData.src,
+	                  height: layerData.height,
+	                  width: layerData.width,
+	                  draggable: layerData.draggable,
+	                  transform: layerData.transform,
+	                  opacity: layerData.opacity,
+	                  key: 'cropped-image-key-' + key
+	                })
+	              )
+	            ));
+	            break;
+
 	          case 'clip_half_left':
 	            array.push(React.createElement(
 	              'g',
@@ -990,6 +1036,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	          this.layouts = null;
 	        }
+
+	        if (options.defaultLayout) {
+	          this.defaultLayout = options.defaultLayout;
+	        } else {
+	          this.defaultLayout = null;
+	        }
 	      }
 	    }
 
@@ -1099,6 +1151,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          // Get the layout based on the name and merge it onto the base configuration
 	          configuration = deepExtend(configuration, this.layouts[options.layout]);
 	        }
+
+	        if (options.activeLayout && typeof this.layoutsactiveLayout !== 'undefined') {
+	          // Get the default layout (image size) to render nad add into the base configuration
+	          configuration = deepExtend(configuration, this.layoutsactiveLayout);
+	        }
 	      }
 
 	      // Return the computed configuration
@@ -1116,7 +1173,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'updateConfiguration',
 	    value: function updateConfiguration(configuration) {
-	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { layouts: null, templates: null, themes: null };
+	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+	        layouts: null,
+	        templates: null,
+	        themes: null
+	        // defaultTemplate: '4x3',
+	      };
 	      var rerender = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 	      this.configuration = configuration;

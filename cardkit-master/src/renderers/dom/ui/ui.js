@@ -22,8 +22,11 @@ class UI extends React.Component {
       configuration: this.props.configuration,
       template: ((this.props.templates) ? Object.keys(this.props.templates)[0] : false),
       theme: ((this.props.themes) ? Object.keys(this.props.themes)[0] : false),
-      layout: ((this.props.layouts) ? Object.keys(this.props.layouts)[0] : false),
-      sidebarOpen: true
+      layout: ((this.props.layouts)
+        ? this.props.defaultLayout || Object.keys(this.props.layouts)[0]
+        : false
+      ),
+      sidebarOpen: true,
     };
 
     console.log('ui state', this.state)
@@ -46,6 +49,7 @@ class UI extends React.Component {
   }
 
   updateTemplate (template) {
+    console.log('updating template')
     const configuration = this.props.cardKit.computeConfiguration({
       template: template,
       theme: this.state.theme,
@@ -62,7 +66,7 @@ class UI extends React.Component {
     // ! activeCardLayout is a global variable in the config file
     // ! It is used to dynamically set x-position on some child elements
     window.activeCardWidth = window.layouts[layout].card.width
-    console.log(window.layouts, window.activeCardWidth)
+    console.log(window.layouts, window.activeCardWidth, layout)
     const configuration = this.props.cardKit.computeConfiguration({
       template: this.state.template,
       theme: this.state.theme,
