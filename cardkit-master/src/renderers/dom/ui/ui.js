@@ -1,6 +1,7 @@
 // Libraries
 const React = require('react');
 
+
 // Styles
 require('./base.scss');
 
@@ -91,7 +92,13 @@ class UI extends React.Component {
 
   downloadCard () {
     // This is dumb, but allows us to get at the SVG element on the DOM, which we can then send off for download
-    this.props.cardKit.download(2, this.refs.canvas.refs.card.refs.svg);
+    this.props.cardKit.download(2, this.refs.canvas.refs.card.refs.svg)
+    ga('send', {
+      hitType: 'event',
+      eventAction: 'download',
+      eventCategory: 'CardKit save',
+      eventLabel: this.state.configuration,
+    })
   }
 
   handleSidebarChange (state) {
