@@ -513,33 +513,52 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            array.push(React.createElement(
 	              Text,
-	              { x: layerData.x,
-	                y: _this5.calculateYPosition(layers, layerData),
+	              {
+	                x: layerOptions.x || layerData.x,
+	                y: layerOptions.y || _this5.calculateYPosition(layers, layerData),
 	                fontFamily: layerData.fontFamily,
 	                fontSize: layerData.fontSize,
 	                fontWeight: layerData.fontWeight,
 	                lineHeight: layerData.lineHeight,
 	                textAnchor: layerData.textAnchor,
-	                fill: layerData.fill,
+	                fill: layerOptions.fill || layerData.fill,
 	                draggable: layerData.draggable,
 	                transform: layerData.transform,
 	                opacity: layerData.opacity,
 	                smartQuotes: layerData.smartQuotes,
-	                key: key },
+	                key: key
+	              },
 	              text
 	            ));
 	            break;
 	          case 'image':
-	            array.push(React.createElement(Image, { x: layerData.x,
-	              y: _this5.calculateYPosition(layers, layerData),
-	              href: layerData.src,
-	              height: layerData.height,
-	              width: layerData.width,
+	            array.push(React.createElement(Image, {
+	              x: layerOptions.x || layerData.x,
+	              y: layerOptions.y || _this5.calculateYPosition(layers, layerData),
+	              href: layerOptions.src || layerData.src,
+	              height: layerOptions.height || layerData.height,
+	              width: layerOptions.width || layerData.width,
+	              draggable: layerData.draggable,
+	              transform: layerData.transform,
+	              opacity: layerOptions.opacity || layerData.opacity,
+	              preserveAspectRatio: layerData.preserveAspectRatio,
+	              key: key
+	            }));
+	            break;
+
+	          case 'overlayImage':
+	            array.push(React.createElement(Image, {
+	              x: layerOptions.x || layerData.x,
+	              y: layerOptions.y || _this5.calculateYPosition(layers, layerData),
+	              href: layerOptions.src || layerData.src,
+	              height: layerOptions.height || layerData.height,
+	              width: layerOptions.width || layerData.width,
 	              draggable: layerData.draggable,
 	              transform: layerData.transform,
 	              opacity: layerData.opacity,
 	              preserveAspectRatio: layerData.preserveAspectRatio,
-	              key: key }));
+	              key: key
+	            }));
 	            break;
 
 	          case 'cropped_image':
