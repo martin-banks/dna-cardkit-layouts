@@ -64,6 +64,7 @@
   "dependencies": {
     "btoa": "^1.1.2",
     "deep-extend": "^0.6.0",
+    "googleanalytics": "^0.4.0",
     "googlefontcss64": "^1.0.0",
     "react": "^16.9.0",
     "react-color": "^2.3.2",
