@@ -99,7 +99,10 @@ class Card extends React.Component {
         case 'text':
           let attachYLayerText = attachYLayer.text.split('\n');
           if (attachYLayer.text !== '') {
-            attachYLayerHeight = (attachYLayerText.length * (this.getLayerValue(layers, attachYLayer, 'lineHeight') || this.getLayerValue(layers, attachYLayer, 'fontSize')));
+            attachYLayerHeight = (
+              attachYLayerText.length * (this.getLayerValue(layers, attachYLayer, 'lineHeight')
+              || this.getLayerValue(layers, attachYLayer, 'fontSize'))
+            );
           }
           break;
         default:
@@ -207,19 +210,21 @@ class Card extends React.Component {
           // Split by newline
           const text = layerData.text.split('\n');
 
-          array.push(<Text x={layerData.x}
-            y={this.calculateYPosition(layers, layerData)}
-            fontFamily={layerData.fontFamily}
-            fontSize={layerData.fontSize}
-            fontWeight={layerData.fontWeight}
-            lineHeight={layerData.lineHeight}
-            textAnchor={layerData.textAnchor}
-            fill={layerData.fill}
-            draggable={layerData.draggable}
-            transform={layerData.transform}
-            opacity={layerData.opacity}
-            smartQuotes={layerData.smartQuotes}
-            key={key}>
+          array.push(<Text
+            x={ layerOptions.x || layerData.x }
+            y={ layerOptions.y || this.calculateYPosition(layers, layerData) }
+            fontFamily={ layerData.fontFamily }
+            fontSize={ layerData.fontSize }
+            fontWeight={ layerData.fontWeight }
+            lineHeight={ layerData.lineHeight }
+            textAnchor={ layerData.textAnchor }
+            fill={ layerOptions.fill || layerData.fill }
+            draggable={ layerData.draggable }
+            transform={ layerData.transform }
+            opacity={ layerData.opacity }
+            smartQuotes={ layerData.smartQuotes }
+            key={ key }
+          >
             {text}
           </Text>);
           break;
@@ -288,6 +293,44 @@ class Card extends React.Component {
                 />
               </g>
             </g>);
+            break;
+
+            case 'cropped_image_circle':
+              array.push(<g key={ `group-key-${key}` }>
+                <defs>
+                  <clipPath id={ `crop-${layerOptions.label}` }>
+                    <circle
+                      id={ `crop-rect-${layerOptions.label}` }
+                      cx={ layerOptions.cx || 0 }
+                      cy={ layerOptions.cy || 0 }
+                      r={ layerOptions.r || 0 }
+                      // x={ layerOptions.x }
+                      // y={ layerOptions.y }
+                      // width={ layerOptions.width }
+                      // height={ layerOptions.height }
+                    />
+                  </clipPath>
+                </defs>
+                <g clipPath={ `url(#crop-${layerOptions.label})` }>
+                  <rect
+                    width="100%"
+                    height="100%"
+                    fill="#ccc"
+                  />
+                  <Image
+                    id={ `image-cropped-${layerOptions.label}` }
+                    x={layerData.x}
+                    y={this.calculateYPosition(layers, layerData)}
+                    href={layerData.src}
+                    height={layerData.height}
+                    width={layerData.width}
+                    draggable={layerData.draggable}
+                    transform={layerData.transform}
+                    opacity={layerData.opacity}
+                    key={ `cropped-image-key-${key}` }
+                  />
+                </g>
+              </g>);
             break;
 
             case 'clip_half_left':
