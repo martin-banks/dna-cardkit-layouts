@@ -18,6 +18,8 @@ class UI extends React.Component {
   constructor (props) {
     super(props);
 
+    console.log('UI PROPS', this.props)
+
     this.state = {
       configuration: this.props.configuration,
       template: ((this.props.templates) ? Object.keys(this.props.templates)[0] : false),

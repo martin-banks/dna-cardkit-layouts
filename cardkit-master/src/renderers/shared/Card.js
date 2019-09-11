@@ -173,13 +173,16 @@ class Card extends React.Component {
    * @return {array} An array of React elements to render on the card
    */
   computeLayers (layers) {
+    console.log('compute layers', { layers })
     const array = [];
-    let layer;
+    // let layer;
 
     // Iterate over the layers
-    Object.keys(layers).forEach((key) => {
-      layer = layers[key];
-      console.log('layer key', { key, layers, layer })
+    layers.forEach((layer, i) => {
+
+      // ! NOT FINDING CORRECT LAYER TO RETURN?
+
+      console.log('layer key', { layers, layer })
 
       // If the layer is hidden, ignore it
       if (this.getLayerValue(layers, layer, 'hidden') === true) {
@@ -188,8 +191,11 @@ class Card extends React.Component {
 
       // Setup an object to contain our layer data
       const layerData = {}
-      const layout = this.props.configuration.name
-      const layerOptions = this.props.configuration.template.layerItems[layout][key].settings
+      // const layout = this.props.configuration.template.defaultLayout
+      const layout = this.props.configuration.layout || this.props.configuration.template.defaultLayout
+      console.log('\n\ncardkit card props\n', this.props.configuration.template.layerItems[layout], layout, {i}, '\n\n')
+      // const layerOptions = this.props.configuration.template.layerItems[layout][key].settings
+      const layerOptions = this.props.configuration.template.layerItems[layout][i].settings
       console.log({ layerOptions })
 
 
@@ -201,8 +207,12 @@ class Card extends React.Component {
       // Make the fill value map to a gradient name, if a gradient has been configured
       // See computeGradients() for the creation of gradient definitions
       if (this.getLayerValue(layers, layer, 'gradient')) {
-        layerData.fill = `url(#${key})`;
+        layerData.fill = `url(#${layer.name})`;
       }
+
+      console.log('starting switch case for layer ')
+
+      const key = `${layer.type}-${layer.name}-${i}`
 
       // Switch over the layer type to ensure we create the card correctly
       switch (layer.type) {
@@ -261,7 +271,7 @@ class Card extends React.Component {
           break;
 
           case 'cropped_image':
-            array.push(<g key={ `group-key-${key}` }>
+            array.push(<g key={ `croppedimage-group-key-${key}` }>
               <defs>
                 <clipPath id={ `crop-${layerOptions.label}` }>
                   <rect
@@ -491,10 +501,12 @@ class Card extends React.Component {
    */
   render () {
     // Grab our configuration
-    const { card, fonts, layers } = this.props.configuration;
+    const { card, fonts, layers, template, useLayout, name } = this.props.configuration;
     console.log('card props', this.props)
     // Compute layers, gradients and fonts
     const layerArray = this.computeLayers(layers);
+    console.log({ layerArray }) // ! RETURNING BLANK!!!!
+
     const gradientsArray = this.computeGradients(layers);
     const fontsArray = this.computeFonts(fonts);
 

@@ -843,13 +843,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function computeLayers(layers) {
 	      var _this5 = this;
 
+	      console.log('compute layers', { layers: layers });
 	      var array = [];
-	      var layer = void 0;
+	      // let layer;
 
 	      // Iterate over the layers
-	      Object.keys(layers).forEach(function (key) {
-	        layer = layers[key];
-	        console.log('layer key', { key: key, layers: layers, layer: layer });
+	      layers.forEach(function (layer, i) {
+
+	        // ! NOT FINDING CORRECT LAYER TO RETURN?
+
+	        console.log('layer key', { layers: layers, layer: layer });
 
 	        // If the layer is hidden, ignore it
 	        if (_this5.getLayerValue(layers, layer, 'hidden') === true) {
@@ -858,8 +861,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Setup an object to contain our layer data
 	        var layerData = {};
-	        var layout = _this5.props.configuration.name;
-	        var layerOptions = _this5.props.configuration.template.layerItems[layout][key].settings;
+	        // const layout = this.props.configuration.template.defaultLayout
+	        var layout = _this5.props.configuration.layout || _this5.props.configuration.template.defaultLayout;
+	        console.log('\n\ncardkit card props\n', _this5.props.configuration.template.layerItems[layout], layout, { i: i }, '\n\n');
+	        // const layerOptions = this.props.configuration.template.layerItems[layout][key].settings
+	        var layerOptions = _this5.props.configuration.template.layerItems[layout][i].settings;
 	        console.log({ layerOptions: layerOptions });
 
 	        // Iterate over the properties of the layer, and compute the value (handles getters, functions, and object implementations such as `y`)
@@ -870,8 +876,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Make the fill value map to a gradient name, if a gradient has been configured
 	        // See computeGradients() for the creation of gradient definitions
 	        if (_this5.getLayerValue(layers, layer, 'gradient')) {
-	          layerData.fill = 'url(#' + key + ')';
+	          layerData.fill = 'url(#' + layer.name + ')';
 	        }
+
+	        console.log('starting switch case for layer ');
+
+	        var key = layer.type + '-' + layer.name + '-' + i;
 
 	        // Switch over the layer type to ensure we create the card correctly
 	        switch (layer.type) {
@@ -932,7 +942,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          case 'cropped_image':
 	            array.push(React.createElement(
 	              'g',
-	              { key: 'group-key-' + key },
+	              { key: 'croppedimage-group-key-' + key },
 	              React.createElement(
 	                'defs',
 	                null,
@@ -1196,11 +1206,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props$configuration = this.props.configuration,
 	          card = _props$configuration.card,
 	          fonts = _props$configuration.fonts,
-	          layers = _props$configuration.layers;
+	          layers = _props$configuration.layers,
+	          template = _props$configuration.template,
+	          useLayout = _props$configuration.useLayout,
+	          name = _props$configuration.name;
 
 	      console.log('card props', this.props);
 	      // Compute layers, gradients and fonts
 	      var layerArray = this.computeLayers(layers);
+	      console.log({ layerArray: layerArray }); // ! RETURNING BLANK!!!!
+
 	      var gradientsArray = this.computeGradients(layers);
 	      var fontsArray = this.computeFonts(fonts);
 
@@ -1355,6 +1370,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _classCallCheck(this, UI);
 
 	    var _this = _possibleConstructorReturn(this, (UI.__proto__ || Object.getPrototypeOf(UI)).call(this, props));
+
+	    console.log('UI PROPS', _this.props);
 
 	    _this.state = {
 	      configuration: _this.props.configuration,
